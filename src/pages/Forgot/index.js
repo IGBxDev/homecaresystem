@@ -6,7 +6,7 @@ import './forgot.css'
 
 import { AuthContext } from '../../contexts/auth'
 
-import logo from '../../assets/logo2.png'
+import logo from '../../assets/image/homecaresystem-logo-login-2.png'
 
 function Forgot() {
 
