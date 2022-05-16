@@ -22,6 +22,7 @@ import {
   BarChart,
   Bar,
 } from "recharts";
+import Card from '../../components/Card';
 
 function Dashboard() {
   const { user } = useContext(AuthContext);
@@ -146,109 +147,49 @@ function Dashboard() {
     <div className="App">
       <Header />
       <div className="content">
-        <Title nome="DashBoard">
+        <Title nome="Dashboards">
           <FiHome size={25} />
         </Title>
         <div className="container-dash">
-          <div>
-            <div className="text-graph">
-              Contas Pagas VS A Pagar
-            </div>
-            <PieChart width={500} height={300}>
-              <Legend />
-              <Tooltip />
-              <Pie data={dataContasPagoTotal} label dataKey="valor" nameKey="nome" cx="50%" cy="50%" outerRadius={100} fill="#8884d8">
-                {dataContasPagoTotal.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-            </PieChart>
-          </div>
-          <div className="charts">
-            <div>
-              <div className="text-graph">
-                Valor Por Categoria
-              </div>
-              <BarChart
-                width={550}
-                height={300}
-                data={dataCategoriasAgrupadas}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="5 5" />
-                <XAxis dataKey="nome" />
-                <YAxis type="number" domain={[0, dataMaiorDebito]} />
-                <Tooltip />
-                <Bar dataKey="valor" fill="#8884d8">
-                  {dataCategoriasAgrupadas.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </div>
-            <div>
-              <div className="text-graph">
-                % por Categoria
-              </div>
-              <PieChart width={500} height={300}>
-                <Tooltip />
-                <Legend />
-                <Pie data={dataCategoriasAgrupadas} label dataKey="porcentagem" nameKey="nome" cx="50%" cy="50%" outerRadius={100} fill="#8884d8">
-                  {dataCategoriasAgrupadas.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </div>
-          </div>
-          <div className="charts">
-            <div>
-              <div className="text-graph">
-                % investido por ativo
-              </div>
-              <PieChart width={500} height={350}>
-                <Tooltip />
-                <Legend />
-                <Pie data={dataInvestimento} label dataKey="porcentagem" nameKey="ativo" cx="50%" cy="50%" outerRadius={100} fill="#8884d8">
-                  {dataInvestimento.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </div>
+        <div className="row">
 
-            <div>
-              <div className="text-graph">
-                Valor Meus Investimentos
-              </div>
-              <BarChart
-                width={600}
-                height={300}
-                data={dataInvestimento}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="5 5" />
-                <XAxis dataKey="ativo" />
-                <YAxis type="number" domain={[0, dataMaiorInvestimento]} />
-                <Tooltip />
-                <Bar dataKey="valor" fill="#8884d8">
-                  {dataInvestimento.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </div>
-          </div>
+<Card 
+  classCol={''} 
+  categoria={'Em Atendimento'} 
+  essencial={''} 
+  classBorderLeft={'primary'} 
+  calssRow={''}
+  classComment={'fa-calendar'}
+/>
+
+<Card 
+  classCol={'col-md-6 mb-4'} 
+  categoria={'Atendimento realizado'} 
+  essencial={'pagar'} 
+  classBorderLeft={'success'} 
+  calssRow={'no-gutters'}
+  classComment={'fa-dollar-sign'}
+/>
+
+<Card 
+  classCol={'col-md-6 mb-4'} 
+  categoria={'Em aberto'} 
+  essencial={'pago'} 
+  classBorderLeft={'info'} 
+  calssRow={'no-gutters'}
+  classComment={'fa-clipboard-list'}
+/>
+
+<Card 
+  classCol={'col-md-6 mb-4'} 
+  categoria={'Em Capitação'} 
+  essencial={'essencial'} 
+  classBorderLeft={'warning'} 
+  calssRow={'no-gutters'}
+  classComment={'fa-comments'}
+/>
+
+</div>
         </div>
       </div>
     </div>
