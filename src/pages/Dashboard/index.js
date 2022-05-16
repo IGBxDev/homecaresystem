@@ -183,7 +183,7 @@ function Dashboard() {
 <Card 
   classCol={'col-md-6 mb-4'} 
   categoria={'Em Capitação'} 
-  essencial={'essencial'} 
+  essencial={'essencial '} 
   classBorderLeft={'warning'} 
   calssRow={'no-gutters'}
   classComment={'fa-comments'}
