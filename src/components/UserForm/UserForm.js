@@ -46,6 +46,11 @@ const options = [
   { label: "E", value: "E" },
 ]
 
+const optionsBloqueioProssional = [
+    { label: "Sim", value: "Sim" },
+    { label: "Não", value: "Não" }
+  ]
+
 //password validation
 const lowercaseRegEx = /(?=.*[a-z])/
 const uppercaseRegEx = /(?=.*[A-Z])/
@@ -211,7 +216,7 @@ const UserForm = () => {
 
                       <Grid item xs={12} sm={6} md={6}>
                         <Field
-                          label="Agencia"
+                          label="Agência"
                           variant="outlined"
                           fullWidth
                           name="numeroConselho"
@@ -231,14 +236,26 @@ const UserForm = () => {
                         />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Bloqueado"
-                          variant="outlined"
-                          fullWidth
-                          name="bloqueado"
-                          value={values.password}
-                          component={TextField}
-                        />
+                        <FormControl fullWidth variant="outlined">
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Bloqueio de Profissional
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            label="Bloqueio de Profissional"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.occupation}
+                            name="bloqueiProfissional">
+                            {/* <MenuItem>None</MenuItem> */}
+                            {optionsBloqueioProssional.map((item) => (
+                              <MenuItem key={item.value} value={item.value}>
+                                {item.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
                       </Grid>
 
 
