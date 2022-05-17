@@ -5,9 +5,9 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import Dashboard from '../pages/Dashboard'
 import Profile from '../pages/Profile'
-import Debits from '../pages/Debits'
-import Simulation from '../pages/Simulation'
-import Investimento from '../pages/Investimentos'
+import Cadastro from '../pages/Cadastro'
+import Portal from '../pages/Portal'
+import Importador from '../pages/Importador'
 import Forgot from '../pages/Forgot';
 
 
@@ -21,7 +21,7 @@ export default function Rotas() {
       <Route
         path="/"
         element={
-          <RequireAuth redirectTo="/simulacoes">
+          <RequireAuth redirectTo="/portal">
             <SignIn />
           </RequireAuth>
         }
@@ -30,7 +30,7 @@ export default function Rotas() {
       <Route
         path="/register"
         element={
-          <RequireAuth redirectTo="/simulacoes">
+          <RequireAuth redirectTo="/portal">
             <SignUp />
           </RequireAuth>
         }
@@ -39,7 +39,7 @@ export default function Rotas() {
       <Route
         path="/forgot"
         element={
-          <RequireAuth redirectTo="/simulacoes">
+          <RequireAuth redirectTo="/portal">
             <Forgot />
           </RequireAuth>
         }
@@ -63,26 +63,26 @@ export default function Rotas() {
         }
       />
       <Route
-        path="/simulacoes"
+        path="/portal"
         element={
           <RequireAuth redirectTo="/" isPrivate>
-            <Simulation />
+            <Portal />
           </RequireAuth>
         }
       />
       <Route
-        path="/investimentos"
+        path="/importador"
         element={
           <RequireAuth redirectTo="/" isPrivate>
-            <Investimento />
+            <Importador />
           </RequireAuth>
         }
       />
       <Route
-        path="/debitos"
+        path="/cadastro"
         element={
           <RequireAuth redirectTo="/" isPrivate>
-            <Debits />
+            <Cadastro />
           </RequireAuth>
         }
       />
