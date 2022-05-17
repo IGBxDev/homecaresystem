@@ -14,14 +14,14 @@ import './style.css';
 import { toast, ToastContainer } from 'react-toastify';
 
 
-function Simulation() {
+function Portal() {
 
   const { user } = useContext(AuthContext);
   return (
     <div className="App">
       <Header />
       <div className="content">
-        <Title nome="Cadastro de Profissionais">
+        <Title nome="Portal">
           <FiTrendingUp size={25} />
         </Title>
         <div className="container-dash">
@@ -32,4 +32,4 @@ function Simulation() {
   );
 }
 
-export default Simulation;
+export default Portal;
