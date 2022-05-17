@@ -75,7 +75,7 @@ form button {
 .info{
     display: flex;
     width: 90%;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 

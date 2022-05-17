@@ -33,7 +33,7 @@ function SignIn() {
         </form>
 
         <div className='info'>
-          <Link className='register' to="/register">Cadastre-se</Link>
+          {/* <Link className='register' to="/register">Cadastre-se</Link> */}
           <Link className ='forgot' to="/forgot">Esqueceu a senha?</Link>
         </div>
       </div>
