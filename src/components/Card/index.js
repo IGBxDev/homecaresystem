@@ -12,7 +12,7 @@ const Card = ({ essencial, categoria, classCol, classBorderLeft, calssRow, class
                         <div className="col mr-2">
                              <div className="text-xs">
                              {categoria}</div>
-                            <div className="h5">R$ {Number(essencial).toFixed(2).replace('.', ',')}</div>
+                            <div className="h5">{essencial}</div>
                         </div>
                             <div className="col-auto">
                                 <i className={`fas ${classComment}`}></i>

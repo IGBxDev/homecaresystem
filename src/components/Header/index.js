@@ -4,7 +4,9 @@ import avatar from '../../assets/avatar.png'
 
 import { AuthContext } from '../../contexts/auth'
 import { Link } from 'react-router-dom'
-import { FiHome, FiLogOut, FiSettings, FiTrendingUp, FiShoppingCart, FiDollarSign } from 'react-icons/fi'
+import { FiHome, FiLogOut, FiSettings, FiTrendingUp, FiShoppingCart } from 'react-icons/fi'
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+import HowToRegSharpIcon from '@mui/icons-material/HowToRegSharp';
 
 function Header() {
 
@@ -15,10 +17,10 @@ function Header() {
                 <img src={user.avatarUrl === null ? avatar : user.avatarUrl} />
             </div>
 
-            <Link to="/dashboard"><FiHome color="FFF" size={24} />Dashboard</Link>
-            <Link to="/simulacoes"><FiTrendingUp color="FFF" size={24} />Simular Objetivos</Link>
-            <Link to="/investimentos"><FiDollarSign color="FFF" size={24} />Meus Investimentos</Link>
-            <Link to="/debitos"><FiShoppingCart color="FFF" size={24} />Meus Gastos</Link>  
+            <Link to="/dashboard"><FiTrendingUp color="FFF" size={24} />Dashboard</Link>
+            {/* <Link to="/portal"><FiHome color="FFF" size={24} />Portal</Link> */}
+            <Link to="/importador"><ImportExportIcon style={{ width: '1.5rem', height: '1.5rem', color: 'white' }}/>Importador</Link>
+            <Link to="/cadastro"><HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem', color: 'white' }}/>Cadastrar Profissional</Link>  
             <Link to="/perfil"><FiSettings color="FFF" size={24} />Configurações</Link>
             <a className="logout-btn-menu" onClick={() => { signOut() }}>
             <FiLogOut color="FFF" size={24} />Sair
