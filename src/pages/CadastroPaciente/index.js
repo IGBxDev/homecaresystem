@@ -7,8 +7,7 @@ import UserForm from '../../components/UserForm/UserForm'
 
 //css
 import './style.css';
-
-function Cadastro() {
+function CadastroPaciente() {
 
   const { user } = useContext(AuthContext);
   
@@ -16,15 +15,15 @@ function Cadastro() {
     <div className="App">
       <Header />
       <div className="content">
-        <Title nome="Cadastro de profissionais">
+        <Title nome="Cadastro de paciente">
           <HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem' }}/>
         </Title>
         <div className="container-dash">
-          <UserForm formulario={'profissional'}/>
+          <UserForm />
         </div>
       </div>
     </div>
   );
 }
 
-export default Cadastro;
+export default CadastroPaciente;

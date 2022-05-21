@@ -3,21 +3,21 @@ import Rotas from './routes'
 import AuthProvider from './contexts/auth'
 import SimulationProvider from './contexts/simulation'
 import InvestimentosnProvider from './contexts/investimento'
-import DebitosProvider from './contexts/debitos'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import ProfessionalProvider from './contexts/professional'
 
 function App() {
   return (
     <AuthProvider>
       <SimulationProvider>
         <InvestimentosnProvider>
-          <DebitosProvider>
+          <ProfessionalProvider>
             <BrowserRouter>
               <ToastContainer autoClose={3000} />
               <Rotas />
             </BrowserRouter>
-          </DebitosProvider>
+          </ProfessionalProvider>
         </InvestimentosnProvider>
       </SimulationProvider>
     </AuthProvider>

@@ -40,3 +40,23 @@ export function listarCategoria() {
     return listSituacao;
   }
 
+
+  export const Specialty = [
+    { label: "Fonoterapia", value: "Fonoterapia" },
+    { label: "Fisioterapia", value: "Fisioterapia" },
+    { label: "Terapia ocupacional", value: "Terapia ocupacional" },
+    { label: "Médico", value: "Médico" },
+    { label: "Enfermeiro", value: "Enfermeiro" },
+    { label: "Nutricionista", value: "Nutricionista" },
+    { label: "Pscicologia", value: "Pscicologia" },
+    { label: "Estomaterapia", value: "Estomaterapia" },
+    { label: "Técnico de enfermagem", value: "Técnico de enfermagem" },
+    { label: "Auxiliar de enfermagem", value: "Auxiliar de enfermagem" },
+    { label: "Cuidador de idoso", value: "Cuidador de idoso" },
+  ]
+  
+  export const ProfessionalBlocked = [
+      { label: "Sim", value: "Sim" },
+      { label: "Não", value: "Não" }
+    ]
+
