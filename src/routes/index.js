@@ -12,6 +12,7 @@ import Forgot from '../pages/Forgot';
 
 
 import RequireAuth from './requireAuth'
+import CadastroPaciente from '../pages/CadastroPaciente';
 
 
 export default function Rotas() {
@@ -86,7 +87,14 @@ export default function Rotas() {
           </RequireAuth>
         }
       />
-
+      <Route
+        path="/cadastropaciente"
+        element={
+          <RequireAuth redirectTo="/" isPrivate>
+            <CadastroPaciente />
+          </RequireAuth>
+        }
+      />
     </Routes>
   )
 }

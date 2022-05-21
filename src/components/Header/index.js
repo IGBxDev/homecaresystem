@@ -18,9 +18,10 @@ function Header() {
             </div>
 
             <Link to="/dashboard"><FiTrendingUp color="FFF" size={24} />Dashboard</Link>
-            {/* <Link to="/portal"><FiHome color="FFF" size={24} />Portal</Link> */}
+           
             <Link to="/importador"><ImportExportIcon style={{ width: '1.5rem', height: '1.5rem', color: 'white' }}/>Importador</Link>
             <Link to="/cadastro"><HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem', color: 'white' }}/>Cadastrar Profissional</Link>  
+             <Link to="/cadastropaciente"><HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem', color: 'white' }}/>Cadastrar Paciente</Link>
             <Link to="/perfil"><FiSettings color="FFF" size={24} />Configurações</Link>
             <a className="logout-btn-menu" onClick={() => { signOut() }}>
             <FiLogOut color="FFF" size={24} />Sair
