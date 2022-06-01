@@ -7,6 +7,7 @@ import UserForm from '../../components/UserForm/UserForm'
 
 //css
 import './style.css';
+import Register from '../../components/Register';
 
 function Cadastro() {
 
@@ -20,7 +21,7 @@ function Cadastro() {
           <HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem' }}/>
         </Title>
         <div className="container-dash">
-          <UserForm formulario={'profissional'}/>
+          <Register formulario={'profissional'}/>
         </div>
       </div>
     </div>

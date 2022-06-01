@@ -34,7 +34,8 @@
     flex-direction: column;
     align-items: stretch;
     background-color: #f8f8f8;
-    border-radius: 5px;
+    border-radius: 20px;
+    border: gray solid 1px;
     padding: .8em;
     margin-bottom: 1em;
     overflow-x: auto;
@@ -55,7 +56,7 @@ selct {
 }
 
 .container-dash label {
-    margin-bottom: .5em;
+    /* margin-bottom: .5em; */
     font-size: 1.4em;
 }
 
