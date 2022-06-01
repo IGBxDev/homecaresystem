@@ -65,7 +65,8 @@ export const Search = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-items: center;
+    /* justify-items: center; */
+    justify-content: space-around;
     align-items: center;
 
     height: 7rem;
