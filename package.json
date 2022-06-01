@@ -2,6 +2,7 @@
   "name": "homecaresystem",
   "version": "0.1.0",
   "private": true,
+  "description": "https://github.com/mui-org/material-ui/blob/v4.x/docs/src/pages/components/text-fields/FormPropsTextFields.js",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -24,6 +25,8 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.1",
     "recharts": "^2.1.9",
+    "sass": "^1.52.1",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
