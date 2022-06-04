@@ -1,5 +1,6 @@
 import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 import React, { useState } from "react"
+import { useEffect } from "react";
 import useForm from "../../hooks/useForm";
 import { 
     Container, 
@@ -14,6 +15,36 @@ const Register = ({ formulario }) => {
     const [name, setName] = useState('');
     const [dataForm, handleInputChange, clear] = useForm({});
     
+    const comparadorChaveValorEndereco = [
+        { name: 'bairro', value: '', chaveValor: 'bairro'},
+        { name: 'cidade', value: '', chaveValor: 'localidade'},
+        { name: 'endereco', value: '', chaveValor: 'logradouro'},
+        { name: 'uf', value: '', chaveValor: 'uf'}
+    ]
+
+    //Busca o endereço na api do correio
+    const searchCEP = (event) => {
+        fetch(`https://viacep.com.br/ws/${event.target.value}/json/`)
+        .then((res) => res.json())
+        .then((data)=>{ 
+            const cepPropsFind = Object.getOwnPropertyNames(data) //pega as propiedades do Objeto            
+            comparadorChaveValorEndereco.forEach((c)=>{  
+                cepPropsFind.forEach((propName)=>{
+                    if(c.chaveValor === propName){
+                        let ev = {
+                            target: {
+                                value: data[propName],
+                                name: c.name 
+                            }                             
+                        }    
+                        handleInputChange(ev) //atualiza o campo do formulário
+                    }
+                })
+            })          
+        })
+        .catch(()=>{})
+    } 
+
     return (
         <Container>
             <div className="cadastro-parceiros">
@@ -67,7 +98,13 @@ const Register = ({ formulario }) => {
                 <form className="formulario" noValidate autoComplete="off">
                     <TextFieldLabel>
                         <label htmlFor="">CEP</label>
-                        <input type="text" value={dataForm.cep} name={'cep'} onChange={(event) => handleInputChange(event)}/>
+                        <input 
+                            type="text" 
+                            value={dataForm.cep} 
+                            name={'cep'} 
+                            onChange={(event) => handleInputChange(event)} 
+                            onBlur={(event) => {searchCEP(event)}}
+                        />
                     </TextFieldLabel>
                     <TextFieldLabel>
                         <label htmlFor="">Endereço</label>

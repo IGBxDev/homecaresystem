@@ -65,16 +65,11 @@ export const Search = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* justify-items: center; */
     justify-content: space-around;
     align-items: center;
-
     height: 7rem;
     width: 100%;
-
-    border: 1px solid grey;
     border-radius: 10px;
-    box-shadow: rgb(0 0 0 / 30%) 0px 5px 10px;
 
     input{
         height: 4rem;
@@ -97,8 +92,4 @@ export const Search = styled.div`
             background-color: white;
         }
     }
-
-    
-
-
 `

@@ -1,2 +1,8 @@
 home care images
  --> https://www.pngwing.com/pt/free-png-cmqap
+
+API - consulta de dados
+https://servicodados.ibge.gov.br/api/docs/localidades
+
+API - correios
+https://viacep.com.br/
