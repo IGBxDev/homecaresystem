@@ -33,7 +33,7 @@ export const TextFieldLabel = styled.div`
         padding-left: 2rem;
     }
     
-    input{
+    input, select{
         border-style: none;
         height: 4rem;
         width: 19rem;
@@ -46,6 +46,12 @@ export const TextFieldLabel = styled.div`
         padding: 0 2rem;
         
     }
+
+    textarea{
+        width: auto;
+    }
+
+
 `
 
 export const Button = styled.button`
@@ -91,5 +97,32 @@ export const Search = styled.div`
         :hover{
             background-color: white;
         }
+    }
+`
+
+
+
+export const TextFieldLabelArea = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    /* border: 1px solid; */
+    padding: 1rem 0;
+    
+    label{
+        padding: 1rem;
+    }
+
+
+    textarea{
+        width: 600px;
+        height: 300px;
+        box-shadow: rgb(0 0 0 / 30%) 0px 5px 10px;
+        border-width: 0;
+        resize: none;
+        font-size: 18px;
+        padding: 1rem;
+        width: auto;
     }
 `
