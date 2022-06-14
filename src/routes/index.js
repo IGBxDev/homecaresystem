@@ -5,7 +5,7 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import Dashboard from '../pages/Dashboard'
 import Profile from '../pages/Profile'
-import Cadastro from '../pages/Cadastro'
+import Cadastro from '../pages/CadastroProfissional'
 import Portal from '../pages/Portal'
 import Importador from '../pages/Importador'
 import Forgot from '../pages/Forgot';

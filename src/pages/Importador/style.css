@@ -455,3 +455,51 @@ tr:nth-child(even) {
   width: 200px;
   margin-right: 4rem;
 }
+
+.importador{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.importador input{
+  margin-bottom: 0;
+  display: none;
+}
+
+.importador label{
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  border-radius: 5rem;
+  box-shadow: rgb(0 0 0 / 30%) 0px 5px 10px;
+  min-height: 70px;
+  height: auto;
+  justify-content: center;
+  background-color: #efefef;
+  padding: 0 1.5rem;
+}
+
+.importador label:hover{
+  background-color: #f0eaea;
+}
+
+.importador button:hover{
+  background-color: #f0eaea;
+}
+
+#modeloXLSX{
+  color: blue;
+  /* padding: 0.5rem 0; */
+
+}
+.importador button{
+  width: 200px;
+  height: 50px;
+  border-radius: 30px;
+  border-style: none;
+  box-shadow: rgb(0 0 0 / 30%) 0px 5px 10px;
+}

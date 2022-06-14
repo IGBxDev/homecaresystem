@@ -60,3 +60,4 @@ export function listarCategoria() {
       { label: "Não", value: "Não" }
     ]
 
+  export const TipoConta = [{id: 1, value: 'Conta Corrente'}, {id: 2, value: 'Conta Poupança'}]
