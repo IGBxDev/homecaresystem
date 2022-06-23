@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext, useCallback } from 'react'
 import { AuthContext } from '../../contexts/auth'
-import { DebitosContext } from '../../contexts/debitos';
-import { InvestimentosContext } from '../../contexts/investimento';
+
 
 import Header from '../../components/Header'
 import Title from '../../components/Title'

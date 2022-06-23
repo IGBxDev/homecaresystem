@@ -9,73 +9,82 @@
 
 }
 
-.login {
-    background: #EAEAEC;
+.container-login{
+    height: 600px;
     width: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background-color: #00000042;
+    padding: 1rem;
+    border-radius: 30px;
 }
 
-.logo-area {
-    display: flex;
-    justify-content: center;
-    background-color: #01346b;
+.logo-login{
+    height: 170px;
+    width: 200px;
+}
+
+.logo-login img{
     width: 100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    box-shadow: 2px 0px 2px 2px rgb(0 0 0 / 24%);
+    height: 100%
 }
 
-.logo-area img {
-    padding: 20px;
-    width: 170px;
-    height:130px;
-}
-
-form{
-    margin-top: 1.5em;
-    width: 90%;
+.form-login{
     display: flex;
     flex-direction: column;
-}
-
-form h1 {
-    text-align: center;
-    margin-bottom: 0.5em;
-    color: #01346b;
-}
-
-.login input {
-    margin-bottom: 15px;
-    height: 35px;
-    border: 0;
-    border-radius: 7px;
-    padding: 10px;
-    font-size: 15px;
-    background-color: #fff;
-}
-
-form button {
-    height: 35px;
-    border: 0;
-    border-radius: 7px;
-    background-color: #01346b;
-    color: #fff;
-    font-size: 1.3em;
-}
-
-.login a {
-    margin:1.5em 0;
-    color: #01346b;
-    cursor: pointer;
-}
-
-.info{
-    display: flex;
-    width: 90%;
+    width: 300px;
+    height: 300px;
+    align-items: center;
     justify-content: center;
 }
 
+.form-login input{
+    padding: 1rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 20px;
+    box-shadow: rgb(4 4 4) 0px 5px 10px;
+    height: 70px;
+    width: 450px;
+    font-size: 25px;
+    color: rgb(40, 23, 228);
+}
 
+.form-login button{
+    padding: 1rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 20px;
+    box-shadow: rgb(4 4 4) 0px 5px 10px;
+    height: 70px;
+    width: 450px;
+    font-size: 25px;
+    color: rgb(21, 0, 255);
+}
+
+.form-login button:hover{
+    background-color: rgb(21, 0, 255);
+    color: white;
+}
+
+.form-login h1{
+    color: white;
+    letter-spacing: 2px;
+    font-size: 40px;
+}
+
+.esqueci-minha-senha{
+    padding: 1rem 0;
+}
+
+.esqueci-minha-senha a{
+    font-size: 25px;
+    color: white;
+    font-weight: 500;
+}
+
+.esqueci-minha-senha a:hover{
+    color: rgb(0, 21, 255);
+}

@@ -70,27 +70,27 @@ const Register = ({ formulario }) => {
 
                     <form  className="formulario" noValidate autoComplete="off">
                         <TextFieldLabel>
-                            <label htmlFor="">Nome Completo</label>
+                            <label >Nome Completo</label>
                             <input type="text" value={dataForm.name} name={'name'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Email</label>
+                            <label >Email</label>
                             <input type="text" value={dataForm.email} name={'email'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Telefone com DD</label>
+                            <label >Telefone com DD</label>
                             <input type="text" value={dataForm.telefone} name={'telefone'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">CPF</label>
+                            <label >CPF</label>
                             <input type="text" value={dataForm.cpf} name={'cpf'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Número do Conselho</label>
+                            <label >Número do Conselho</label>
                             <input type="text" value={dataForm.numeroConselho} name={'numeroConselho'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Região que atende</label>
+                            <label >Região que atende</label>
                             <input type="text" value={dataForm.regiaoAtende} name={'regiaoAtende'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>                    
                     </form>
@@ -101,7 +101,7 @@ const Register = ({ formulario }) => {
 
                     <form className="formulario" noValidate autoComplete="off">
                         <TextFieldLabel>
-                            <label htmlFor="">CEP</label>
+                            <label >CEP</label>
                             <input 
                                 type="text" 
                                 value={dataForm.cep} 
@@ -111,27 +111,27 @@ const Register = ({ formulario }) => {
                             />
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Endereço</label>
+                            <label >Endereço</label>
                             <input type="text" value={dataForm.endereco} name={'endereco'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Número</label>
+                            <label >Número</label>
                             <input type="text" value={dataForm.numero} name={'numero'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Complemento</label>
+                            <label >Complemento</label>
                             <input type="text" value={dataForm.complemento} name={'complemento'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">UF</label>
+                            <label >UF</label>
                             <input type="text" value={dataForm.uf} name={'uf'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Cidade</label>
+                            <label >Cidade</label>
                             <input type="text" value={dataForm.cidade} name={'cidade'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Bairro</label>
+                            <label >Bairro</label>
                             <input type="text" value={dataForm.bairro} name={'bairro'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                     </form>
@@ -142,25 +142,25 @@ const Register = ({ formulario }) => {
 
                     <form className="formulario" noValidate autoComplete="off">
                         <TextFieldLabel>
-                            <label htmlFor="">Banco</label>
+                            <label >Banco</label>
                             <input type="text" value={dataForm.banco} name={'banco'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Agência</label>
+                            <label >Agência</label>
                             <input type="text" value={dataForm.agencia} name={'agencia'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Conta</label>
+                            <label >Conta</label>
                             <input type="text" value={dataForm.conta} name={'conta'} onChange={(event) => handleInputChange(event)}/>
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Tipo de Conta CC/POU</label>
+                            <label >Tipo de Conta CC/POU</label>
                             <select className="textfieldlista" name={'tipoconta'}>
                             {TipoConta.map((tipo)=>{
                                 return( <option value={tipo.id}>{tipo.value}</option> )
                             })}
                             </select>
-                            {/* <label htmlFor="">Tipo de Conta CC/POU</label> */}
+                            {/* <label >Tipo de Conta CC/POU</label> */}
                             {/* <input type="text" value={dataForm.tipoConta} name={'tipoConta'} onChange={(event) => handleInputChange(event)}/> */}
                         </TextFieldLabel>   
 
@@ -173,25 +173,25 @@ const Register = ({ formulario }) => {
                     
                     <form className="formulario" noValidate autoComplete="off">
                         <TextFieldLabel>
-                            <label htmlFor="">Especialidade</label>
+                            <label >Especialidade</label>
                             <select  name={'especialidade'}>
                                 <option value=""></option>
                             {Specialty.map((tipo)=>{
                                 return( <option value={tipo.id}>{tipo.value}</option> )
                             })}
                             </select>
-                            {/* <label htmlFor="">Especialidade</label> */}
+                            {/* <label >Especialidade</label> */}
                             {/* <input type="text" value={dataForm.especialidade} name={'especialidade'} onChange={(event) => handleInputChange(event)}/> */}
                         </TextFieldLabel>
                         <TextFieldLabel>
-                            <label htmlFor="">Bloqueio do Profissional</label>
+                            <label >Bloqueio do Profissional</label>
                             <select  name={'bloqueioProfissional'} value={dataForm.bloqueioProfissional} onChange={(event) => handleInputChange(event)}>
                                 <option value=""></option>
                             {ProfessionalBlocked.map((tipo)=>{
                                 return( <option value={tipo.id}>{tipo.value}</option> )
                             })}
                             </select>
-                            {/* <label htmlFor="">Bloqueio do Profissional</label> */}
+                            {/* <label >Bloqueio do Profissional</label> */}
                             {/* <input type="text" value={dataForm.bloqueioProfissional} name={'bloqueioProfissional'} onChange={(event) => handleInputChange(event)}/> */}
                         </TextFieldLabel>                  
                     </form>
@@ -216,11 +216,11 @@ const Register = ({ formulario }) => {
 
                         <form  className="formulario" noValidate autoComplete="off">
                             <TextFieldLabel>
-                                <label htmlFor="">Nome Completo</label>
+                                <label >Nome Completo</label>
                                 <input type="text" value={dataForm.name} name={'name'} onChange={(event) => handleInputChange(event)}/>
                             </TextFieldLabel>
                             <TextFieldLabel>
-                                <label htmlFor="">Telefone com DD</label>
+                                <label >Telefone com DD</label>
                                 <input type="text" value={dataForm.telefone} name={'telefone'} onChange={(event) => handleInputChange(event)}/>
                             </TextFieldLabel>                   
                         </form>
@@ -231,7 +231,7 @@ const Register = ({ formulario }) => {
 
                         <form className="formulario" noValidate autoComplete="off">
                             <TextFieldLabel>
-                                <label htmlFor="">CEP</label>
+                                <label >CEP</label>
                                 <input 
                                     type="text" 
                                     value={dataForm.cep} 
@@ -241,27 +241,27 @@ const Register = ({ formulario }) => {
                                 />
                             </TextFieldLabel>
                             <TextFieldLabel>
-                                <label htmlFor="">Endereço</label>
+                                <label >Endereço</label>
                                 <input type="text" value={dataForm.endereco} name={'endereco'} onChange={(event) => handleInputChange(event)}/>
                             </TextFieldLabel>
                             <TextFieldLabel>
-                                <label htmlFor="">Número</label>
+                                <label >Número</label>
                                 <input type="text" value={dataForm.numero} name={'numero'} onChange={(event) => handleInputChange(event)}/>
                             </TextFieldLabel>
                             <TextFieldLabel>
-                                <label htmlFor="">Complemento</label>
+                                <label >Complemento</label>
                                 <input type="text" value={dataForm.complemento} name={'complemento'} onChange={(event) => handleInputChange(event)}/>
                             </TextFieldLabel>
                             <TextFieldLabel>
-                                <label htmlFor="">UF</label>
+                                <label >UF</label>
                                 <input type="text" value={dataForm.uf} name={'uf'} onChange={(event) => handleInputChange(event)}/>
                             </TextFieldLabel>
                             <TextFieldLabel>
-                                <label htmlFor="">Cidade</label>
+                                <label >Cidade</label>
                                 <input type="text" value={dataForm.cidade} name={'cidade'} onChange={(event) => handleInputChange(event)}/>
                             </TextFieldLabel>
                             <TextFieldLabel>
-                                <label htmlFor="">Bairro</label>
+                                <label >Bairro</label>
                                 <input type="text" value={dataForm.bairro} name={'bairro'} onChange={(event) => handleInputChange(event)}/>
                             </TextFieldLabel>
                         </form>
@@ -272,7 +272,7 @@ const Register = ({ formulario }) => {
 
                         <form  className="formulario" noValidate autoComplete="off" style={{ margin: 0, width: '100%' }}>
                             <TextFieldLabelArea>
-                                <label htmlFor="">HD</label>
+                                <label >HD</label>
                                 <textarea 
                                     value={dataForm.name} name={'name'} 
                                     onChange={(event) => handleInputChange(event)}
