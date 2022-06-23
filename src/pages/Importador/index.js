@@ -8,22 +8,26 @@ import * as XLSX from 'xlsx';
 import './style.css';
 import { toast } from 'react-toastify';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
+import * as ImportadorValidador from './ImportadorValidador'
+import { PacienteContext } from '../../contexts/paciente';
 
 const Importador = () => {
 
   const ref = useRef();
   const { user } = useContext(AuthContext);
+  const { savePaciente, findPaciente, updatePaciente, pacienteFind } = useContext(PacienteContext)
   const [fileName, setFileName] = useState('')
-  const [sheetPaciente, setSheetPaciente] = useState({})
+  const [sheetPaciente, setSheetPaciente] = useState([{}])
   const [sheetProfissional, setSheetProfissional] = useState({})
   const [sheetConvenio, setSheetConvenio] = useState({})
   const [sheetFrequencia, setSheetFrequencia] = useState({})
+  const [excelIsOK, setExcelIsOK] = useState(false)
   
   async function handleFile(e) {
     const file = e.target.files[0];
 
     setFileName(file.name);
-    console.log("FILE: ", file)
+    // console.log("FILE: ", file)
 
     const data = await file.arrayBuffer();
     const workbook = XLSX.read(data);
@@ -33,17 +37,18 @@ const Importador = () => {
     const worksheetConvenio = workbook.Sheets[workbook.SheetNames[2]];
     const worksheetFrequencia = workbook.Sheets[workbook.SheetNames[3]];
     
-    console.log("workbook: ", workbook.SheetNames)
+    // console.log("workbook: ", workbook.SheetNames)
 
     const dataPaciente = XLSX.utils.sheet_to_json(worksheetPaciente);
     const dataProfissional = XLSX.utils.sheet_to_json(worksheetProfissional);
     const dataConvenio = XLSX.utils.sheet_to_json(worksheetConvenio);
     const dataFrequencia = XLSX.utils.sheet_to_json(worksheetFrequencia);
 
-    // console.log("dataPaciente", dataPaciente)
+    console.log("dataPaciente", dataPaciente)
     // console.log("dataProfissional", dataProfissional)
     // console.log("dataConvenio", dataConvenio)
     // console.log("dataFrequencia", dataFrequencia)
+    // const convert = JSON.parse(dataPaciente)
 
     setSheetPaciente(dataPaciente);
     setSheetProfissional(dataProfissional);
@@ -53,7 +58,47 @@ const Importador = () => {
     let modeloXLSX = document.getElementById("modeloXLSX") 
     modeloXLSX.innerText = file?.name
 
+    const isSheetValid = ImportadorValidador.validaAbas(workbook.SheetNames)
+    const isSheetColumnValid = ImportadorValidador.validaConlunasPaciente(dataPaciente)
+
+    if(isSheetValid && isSheetColumnValid){
+      setExcelIsOK(true)
+    }
+
   };
+
+  const excelImportModelo = () => {
+    if(excelIsOK){      
+      sheetPaciente.map((data) =>{
+        let payload = {
+          paciente: data.PACIENTE,
+          cpf: data.CPF,
+          convenio: data.CONVENIO,
+          valor: data.VALOR,
+          telefone: data.TELEFONE,
+          cep: data.CEP,
+          endereco: data.ENDERECO,
+          numero: data.NUMERO,
+          complemento: data.COMPLEMENTO,
+          bairro: data.BAIRRO,
+          estado: data.ESTADO,
+          registro: data.REGISTRO,
+          status: data.STATUS
+        }
+
+        findPaciente(data.CPF)
+
+        if(pacienteFind.size != 0 && pacienteFind.size != undefined ){
+          updatePaciente(pacienteFind, payload)
+        }
+
+        if(pacienteFind.size === 0){
+          savePaciente(payload)
+        }       
+      })
+
+    }
+  }
 
   return (
     <div className="App">
@@ -70,7 +115,7 @@ const Importador = () => {
               <span id='modeloXLSX'></span>
             </label>
             
-            <button>Importar</button>
+            <button onClick={() => excelImportModelo()}>Importar</button>
           </div>
             
         </div>

@@ -31,6 +31,7 @@ export const TextFieldLabel = styled.div`
 
     label{
         padding-left: 2rem;
+        padding-bottom: 0.5rem;
     }
     
     input, select{

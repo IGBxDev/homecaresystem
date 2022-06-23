@@ -6,3 +6,7 @@ https://servicodados.ibge.gov.br/api/docs/localidades
 
 API - correios
 https://viacep.com.br/
+
+
+API - Banks
+https://brasilapi.com.br/api/banks/v1
