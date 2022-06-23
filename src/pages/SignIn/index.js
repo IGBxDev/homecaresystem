@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth'
-
+import { toast } from 'react-toastify'
 import logo from '../../assets/image/homecaresystem-logo-login-2.png'
 
 
@@ -15,9 +15,15 @@ function SignIn() {
 
   function handledSubmit(e) {
     e.preventDefault();
+    
+    if(email === "" || password === ""){
+      toast.error("Necessário informar e-mail e senha")
+    }
+    
     if (email !== '' && password !== '') {
       signIn(email, password)
     }
+
   }
 
 
