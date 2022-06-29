@@ -1,23 +1,26 @@
 .container-center{
-    height: 100%;
+    height: 100vh;
+    width: 100vw;
     display:flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
     background-image: url("../../assets/image/background-7.png");
     background-repeat: no-repeat;
     background-size: cover;
-
 }
 
 .container-login{
-    height: 600px;
-    width: 600px;
+    height: auto;
+    min-width: 35rem;
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background-color: #00000042;
-    padding: 1rem;
+    /* padding: 1rem; */
     border-radius: 30px;
 }
 
@@ -34,8 +37,8 @@
 .form-login{
     display: flex;
     flex-direction: column;
-    width: 300px;
-    height: 300px;
+    width: 35rem;
+    height: 400px;
     align-items: center;
     justify-content: center;
 }
@@ -46,8 +49,8 @@
     border: none;
     border-radius: 20px;
     box-shadow: rgb(4 4 4) 0px 5px 10px;
-    height: 70px;
-    width: 450px;
+    height: 4.5rem;
+    width: 25rem;
     font-size: 25px;
     color: rgb(40, 23, 228);
 }
@@ -58,8 +61,8 @@
     border: none;
     border-radius: 20px;
     box-shadow: rgb(4 4 4) 0px 5px 10px;
-    height: 70px;
-    width: 450px;
+    height: 4.5rem;
+    width: 25rem;
     font-size: 25px;
     color: rgb(21, 0, 255);
 }

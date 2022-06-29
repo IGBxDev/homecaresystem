@@ -11,13 +11,13 @@ import './style.css';
 import Card from '../../components/Card';
 
 function Dashboard() {
-  const { user } = useContext(AuthContext);
+  const { user, isHumburguerActive } = useContext(AuthContext);
 
   
   return (
     <div className="App">
       <Header />
-      <div className="content">
+      <div className={`content${isHumburguerActive? '-active' : '' }`}>
         <Title nome="Dashboards">
           <FiTrendingUp size={25} />
         </Title>
