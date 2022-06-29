@@ -29,19 +29,40 @@
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
-.container-dash {
+/* .container-dash {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     background-color: #f8f8f8;
-    border-radius: 20px;
-    border: gray solid 1px;
+    border-radius: 5px;
     padding: .8em;
     margin-bottom: 1em;
     overflow-x: auto;
+} */
+
+.status-pending {
+  background-color: #fff0c2;
+  color: #a68b00;
 }
 
-.container-dash input,
+.status-paid {
+  background-color: #c8e6c9;
+  color: #388e3c;
+}
+
+.status--unpaid {
+  background-color: #ffcdd2;
+  color: #c62828;
+}
+
+.btnAlterarStatus{
+  margin: 0;
+  border: 0;
+  background: transparent;
+  width: 100%;
+}
+
+/* .container-dash input,
 textarea,
 selct {
     margin-bottom: 1em;
@@ -49,16 +70,16 @@ selct {
     border: 1;
     border-radius: 10px;
     max-width: 600px;
-}
+} */
 
-.container-dash input:disabled {
+/* .container-dash input:disabled {
     cursor: not-allowed;
-}
+} */
 
-.container-dash label {
-    /* margin-bottom: .5em; */
+/* .container-dash label {
+    margin-bottom: .5em;
     font-size: 1.4em;
-}
+} */
 
 .btnCalcular {
     padding: 8px 20px;
@@ -184,9 +205,21 @@ tr:nth-child(even) {
 
 }
 
-.actionsArea{
-  display: flex;
-  justify-content: flex-end;
+.optIcon{
+  cursor: pointer;
+}
+
+.ReactModal__form select {
+  width: 30%;
+    padding: 0 1.5rem;
+    height: 3rem;
+    border-radius: 0.25rem;
+    border: 1px solid #d7d7d7;
+    background: #e7e9ee;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
 }
 
 .ReactModal__form label{
@@ -197,32 +230,30 @@ tr:nth-child(even) {
     font-size: 1rem;
 }
 
-.ReactModal__Submit{
-    height: 3rem;
-    background: rgb(1, 173, 1);
-    color: #fff;
-    border-radius: 0.25rem;
-    border: 0;
-    font-size: 1rem;
-    width: 200px;
-    margin-left: 10px;
+.actionsArea{
+  display: flex;
+  justify-content: flex-end;
+}   
+
+.ReactModal__Submit:hover{
+    background:#07bc0c;
 }
 
-.ReactModal__Clear{
+.ReactModal__save{
+  width: 90%;
+  padding: 0 1.5rem;
   height: 3rem;
-  background: rgb(173 1 1);
+  background: rgb(1, 173, 1);
   color: #fff;
   border-radius: 0.25rem;
   border: 0;
   font-size: 1rem;
-  width: 200px;
-  margin-left: 10px;
+  margin-bottom: 1rem;
+    margin-left: 2rem;
 }
-    
-    
 
-.ReactModal__Submit:hover{
-    background:#07bc0c;
+.ReactModal__save:hover{
+  background:#07bc0c;
 }
 
 .ReactModal__Cancel{
@@ -240,23 +271,6 @@ tr:nth-child(even) {
 
 .ReactModal__Cancel:hover{
     background:rgb(184, 52, 0);
-}
-
-.ReactModal__save{
-  width: 90%;
-  padding: 0 1.5rem;
-  height: 3rem;
-  background: rgb(1, 173, 1);
-  color: #fff;
-  border-radius: 0.25rem;
-  border: 0;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 2rem;
-}
-
-.ReactModal__save:hover{
-  background:#07bc0c;
 }
 
 .ReactModal__Simulate{
@@ -437,69 +451,16 @@ tr:nth-child(even) {
   color: #5a5c69;
 }
 
-.ReactModal_style{
-  display: flex;
-
-  justify-content: right;
-  align-items: center;
+.card-por-categoria{
+  margin: 10px 0px;
 }
 
-.ReactModal_style > .ReactModal__save{
-  margin: 0px;
-  width: 200px;
-  margin-right: 20px;
-}
-
-.ReactModal_style > .ReactModal__Cancel{
-  margin: 0px;
-  width: 200px;
-  margin-right: 4rem;
-}
-
-.importador{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-}
-
-.importador input{
-  margin-bottom: 0;
-  display: none;
-}
-
-.importador label{
+.card-por-categoria >a:hover{
   cursor: pointer;
+  color: blueviolet;
+}
+
+
+.card-info-categoria{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: auto;
-  border-radius: 5rem;
-  box-shadow: rgb(0 0 0 / 30%) 0px 5px 10px;
-  min-height: 70px;
-  height: auto;
-  justify-content: center;
-  background-color: #efefef;
-  padding: 0 1.5rem;
-}
-
-.importador label:hover{
-  background-color: #f0eaea;
-}
-
-.importador button:hover{
-  background-color: #f0eaea;
-}
-
-#modeloXLSX{
-  color: blue;
-  /* padding: 0.5rem 0; */
-
-}
-.importador button{
-  width: 200px;
-  height: 50px;
-  border-radius: 30px;
-  border-style: none;
-  box-shadow: rgb(0 0 0 / 30%) 0px 5px 10px;
 }

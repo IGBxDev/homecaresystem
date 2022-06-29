@@ -9,7 +9,7 @@ function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loadingAuth, setLoadingAuth] = useState(false);
     const [load, setLoad] = useState(true);
-
+    const [isHumburguerActive, setIsHumburguerActive] = useState(false)
     useEffect(() => {
 
         const storageUser = localStorage.getItem('SistemaUser');
@@ -122,7 +122,9 @@ function AuthProvider({ children }) {
             loadingAuth, 
             setUser, 
             storageUser,
-            forgot
+            forgot,
+            isHumburguerActive,
+            setIsHumburguerActive
         }}>
             {children}
         </AuthContext.Provider>

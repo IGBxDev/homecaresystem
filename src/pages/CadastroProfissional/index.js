@@ -9,14 +9,14 @@ import UserForm from '../../components/UserForm/UserForm'
 import './style.css';
 import Register from '../../components/Register';
 
-function Cadastro() {
+function CadastroProfissional() {
 
-  const { user } = useContext(AuthContext);
+  const { user, isHumburguerActive } = useContext(AuthContext);
   
   return (
     <div className="App">
       <Header />
-      <div className="content">
+      <div className={`content${isHumburguerActive? '-active' : '' }`}>
         <Title nome="Cadastro de profissionais">
           <HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem' }}/>
         </Title>
@@ -28,4 +28,4 @@ function Cadastro() {
   );
 }
 
-export default Cadastro;
+export default CadastroProfissional;

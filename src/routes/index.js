@@ -5,9 +5,13 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import Dashboard from '../pages/Dashboard'
 import Profile from '../pages/Profile'
-import Cadastro from '../pages/CadastroProfissional'
+import CadastroProfissional from '../pages/CadastroProfissional'
 import Portal from '../pages/Portal'
-import Importador from '../pages/Importador'
+import ImportarProfissional from '../pages/ImportarProfissional'
+import ImportarPaciente from '../pages/ImportarPaciente'
+import CadastroConvenio from '../pages/CadastroConvenio';
+import CadastroFrequencia from '../pages/CadastroFrequencia';
+
 import Forgot from '../pages/Forgot';
 
 
@@ -72,29 +76,59 @@ export default function Rotas() {
         }
       />
       <Route
-        path="/importador"
+        path="/importarPaciente"
         element={
           <RequireAuth redirectTo="/" isPrivate>
-            <Importador />
+            <ImportarPaciente />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/importarProfissional"
+        element={
+          <RequireAuth redirectTo="/" isPrivate>
+            <ImportarProfissional />
+          </RequireAuth>
+        }
+      />
+
+
+      <Route
+        path="/cadastroProfissional"
+        element={
+          <RequireAuth redirectTo="/" isPrivate>
+            <CadastroProfissional />
           </RequireAuth>
         }
       />
       <Route
-        path="/cadastro"
-        element={
-          <RequireAuth redirectTo="/" isPrivate>
-            <Cadastro />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/cadastropaciente"
+        path="/cadastroPaciente"
         element={
           <RequireAuth redirectTo="/" isPrivate>
             <CadastroPaciente />
           </RequireAuth>
         }
       />
+
+      <Route
+        path="/cadastroConvenio"
+        element={
+          <RequireAuth redirectTo="/" isPrivate>
+            <CadastroConvenio />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/cadastroFrequencia"
+        element={
+          <RequireAuth redirectTo="/" isPrivate>
+            <CadastroFrequencia />
+          </RequireAuth>
+        }
+      />
+
     </Routes>
   )
 }

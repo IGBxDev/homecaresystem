@@ -7,7 +7,7 @@ import HowToRegSharpIcon from '@mui/icons-material/HowToRegSharp';
 //css
 import './style.css';
 import Register from '../../components/Register';
-function CadastroPaciente() {
+function CadastroConvenio() {
 
   const { user, isHumburguerActive } = useContext(AuthContext);
   
@@ -15,15 +15,15 @@ function CadastroPaciente() {
     <div className="App">
       <Header />
       <div className={`content${isHumburguerActive? '-active' : '' }`}>
-        <Title nome="Cadastro de paciente">
+        <Title nome="Cadastrar Convênio: TELA EM CONSTRUÇÃO">
           <HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem' }}/>
         </Title>
         <div className="container-dash">
-          <Register formulario={'paciente'} />
+          {/* <Register formulario={'paciente'} /> */}
         </div>
       </div>
     </div>
   );
 }
 
-export default CadastroPaciente;
+export default CadastroConvenio;
