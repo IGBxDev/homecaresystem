@@ -24,8 +24,7 @@ function Header() {
     const { user, signOut, isHumburguerActive, setIsHumburguerActive } = useContext(AuthContext);
     const [isConfig, setIsConfig] = useState(false);
     const [isModel, setIsModel] = useState(false);
-    // const [isHumburguerActive, setisHumburguerActive] = useState(false)
-    console.log(`USER_URL: ${JSON.stringify(user.avatarUrl)}, USER_NAME${JSON.stringify(user.nome)}`)
+
     return (<>
         <div className={`sidebar ${isHumburguerActive ? 'sidebar-active' : ''}`}>
             <div className={`sidebar-logo`}>
