@@ -14,14 +14,21 @@ import { AuthContext } from '../../contexts/auth'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
 import { FiTrendingUp } from 'react-icons/fi'
+import { extensoesPermitidas } from '../../utils';
+import * as XLSX from 'xlsx';
+import { useEventCallback } from '@mui/material';
 
 const ImportarPaciente = () => {
     const { user, isHumburguerActive } = useContext(AuthContext);
     const [totalSize, setTotalSize] = useState(0);
     const toast = useRef(null);
     const fileUploadRef = useRef(null);
-
+    const [fileName, setFileName]= useState(null)
+    const [fileData, setFileData] = useState(null)
+    const [fileJsonData, setFileJsonData]= useState(null)
+    let fileOnRemove = null
     const onUpload = () => {
+        console.log("Upload do arquivo")
         toast.current.show({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
     }
 
@@ -35,6 +42,7 @@ const ImportarPaciente = () => {
     }
 
     const onTemplateUpload = (e) => {
+        console.log("onTemplateUpload",e)
         let _totalSize = 0;
         e.files.forEach(file => {
             _totalSize += (file.size || 0);
@@ -62,6 +70,7 @@ const ImportarPaciente = () => {
     }
 
     const headerTemplate = (options) => {
+        
         const { className, chooseButton, uploadButton, cancelButton } = options;
         const value = totalSize/10000;
         const formatedValue = fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : '0 B';
@@ -77,17 +86,25 @@ const ImportarPaciente = () => {
     }
 
     const itemTemplate = (file, props) => {
+        console.log("itemTemplate", file)
+        fileOnRemove = props.onRemove
         return (
             <div className="flex align-items-center flex-wrap">
                 <div className="flex align-items-center" style={{width: '40%'}}>
-                    <img alt={file.name} role="presentation" src={file.objectURL} width={100} />
+                    {/* <img alt={file.name} role="presentation" src={file.objectURL} width={100} /> */}
+                    {/* <span className='pi pi-file-excel' style={{color: 'green'}} size={100}></span> */}
                     <span className="flex flex-column text-left ml-3">
                         {file.name}
-                        <small>{new Date().toLocaleDateString()}</small>
+                        {/* <small>{new Date().toLocaleDateString()}</small> */}
                     </span>
                 </div>
                 <Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
-                <Button type="button" icon="pi pi-times" className="p-button-outlined p-button-rounded p-button-danger ml-auto" onClick={() => onTemplateRemove(file, props.onRemove)} />
+                <Button 
+                    type="button" 
+                    icon="pi pi-times" 
+                    className="p-button-outlined p-button-rounded p-button-danger ml-auto" 
+                    onClick={() => onTemplateRemove(file, props.onRemove)} 
+                />
             </div>
         )
     }
@@ -117,6 +134,28 @@ const ImportarPaciente = () => {
     const uploadOptions = {label: '', icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined'};
     const cancelOptions = {label: '', icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined'};
 
+    const uploadHandler = async (e) =>{
+     
+       const file = e.files[0]
+       setFileName(file.name)
+       setFileData(file)
+       const jsonData = await convertXLSXToJson(file)
+       setFileJsonData(jsonData)
+       onTemplateRemove(file, fileOnRemove)
+    
+    }
+
+    const convertXLSXToJson = async (file) => {
+        const data = await file.arrayBuffer();
+        const workBook = XLSX.read(data);
+        const worksheet = workBook.Sheets[workBook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+        return jsonData
+    } 
+
+    const onRemove = (e) =>{
+        console.log("onRemove file", e)
+    }
     return (
         <div className="App">
              <Header />
@@ -133,11 +172,14 @@ const ImportarPaciente = () => {
 
                 <div className="card">
                     <FileUpload 
+                    itemTemplate={itemTemplate}
+                    customUpload={true}
+                    uploadHandler={uploadHandler}
                     chooseLabel='Selecione um arquivo'
-                    uploadLabel='Upload'
+                    uploadLabel='Enviar'
                     cancelLabel='Cancelar'
-                    name="demo[]" url="https://primefaces.org/primereact/showcase/upload.php" 
                     onUpload={onUpload}
+                    // onRemove={(e)=> onRemove }
                     emptyTemplate={<p className="m-0">Arraste e solte os arquivos aqui para fazer o upload.</p>} />
                 </div>
             </div>

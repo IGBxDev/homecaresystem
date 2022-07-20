@@ -1,5 +1,6 @@
 import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 import React, { useState } from "react"
+import { toast } from "react-toastify";
 import useForm from "../../hooks/useForm";
 import { Specialty, ProfessionalBlocked, TipoConta } from '../../services/lists'
 import { 
@@ -15,6 +16,8 @@ const Register = ({ formulario }) => {
 
     const [name, setName] = useState('');
     const [dataForm, handleInputChange, clear] = useForm({});
+    const [search, setSearch] = useState('')
+    const [openModal, setOpenModal] = useState(false)
 
     
     const comparadorChaveValorEndereco = [
@@ -47,14 +50,26 @@ const Register = ({ formulario }) => {
         .catch(()=>{})
     } 
 
+    const onClickLookUp = () => {
+        if(!search){
+            toast.error("Necessário informar um nome")
+        }
+        console.log("names: ", search)
+    }
     return (
         <Container>
-
             {formulario === "profissional" && (
                 <div className="cadastro-parceiros">
 
                     <Search>
-                        <input type="text" name="" id="" placeholder="Consultar profissional"/>
+                        <input 
+                            type="text" 
+                            name="search" 
+                            id="" 
+                            placeholder="Consultar profissional"
+                            value={search}
+                            onChange={(e)=> setSearch(e.target.value)}
+                        />
                         <FormGroup>
                             <FormControlLabel control={<Checkbox  />} label="Zona Norte" />
                             <FormControlLabel control={<Checkbox  />} label="Zona Leste" />
@@ -63,7 +78,7 @@ const Register = ({ formulario }) => {
                             <FormControlLabel control={<Checkbox  />} label="Zona Sul" />
                             <FormControlLabel control={<Checkbox  />} label="Zona Oeste" />
                         </FormGroup>
-                        <button>pesquisar</button>
+                        <button onClick={() => onClickLookUp()}>pesquisar</button>
                     </Search>
                     <hr />
                     <h1>Dados Pessoais</h1>

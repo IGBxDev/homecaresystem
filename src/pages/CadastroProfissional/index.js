@@ -1,4 +1,4 @@
-import {useContext } from 'react'
+import React, {useContext, useRef, useState } from 'react'
 import { AuthContext } from '../../contexts/auth'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
@@ -7,11 +7,126 @@ import UserForm from '../../components/UserForm/UserForm'
 
 //css
 import './style.css';
+import './dataTable.css'
+
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+
+
 import Register from '../../components/Register';
+import { Button } from 'primereact/button';
+import { Toolbar } from 'primereact/toolbar';
+import { Column } from 'primereact/column';
+import { DataTable } from 'primereact/datatable';
+import { InputText } from 'primereact/inputtext';
+import { Dialog } from 'primereact/dialog';
+import { MenuItem, TextField } from '@mui/material';
+
+let emptyProduct = {
+  id: null,
+  name: '',
+  image: null,
+  description: '',
+  category: null,
+  price: 0,
+  quantity: 0,
+  rating: 0,
+  inventoryStatus: 'INSTOCK'
+};
+
+
 
 function CadastroProfissional() {
 
   const { user, isHumburguerActive } = useContext(AuthContext);
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState(null);
+  const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
+  const [productDialog, setProductDialog] = useState(false);
+  const [globalFilter, setGlobalFilter] = useState(null);
+  const [products, setProducts] = useState(null);
+  const [product, setProduct] = useState();
+  const [openModal, setOpenModal]= useState(false)
+  const [newProductsDialog, setNewProductsDialog] = useState(false);
+  const dt = useRef(null);
+
+// --------------------------------------------------------------------------------------
+const productDialogFooter = (
+  <React.Fragment>
+    <Button
+      label="Cancelar"
+      icon="pi pi-times"
+      className="p-button-text"
+      onClick={() => hideDialog()}
+    />
+    <Button
+      label="Salvar"
+      icon="pi pi-check"
+      className="p-button-text"
+      onClick={(e) => saveProduct(e)}
+    />
+  </React.Fragment>
+);
+
+const hideDialog = () => {
+  setSubmitted(false);
+  setProductDialog(false);
+  setNewProductsDialog(!newProductsDialog)
+  
+};
+
+const onInputChange = (e, name) => {
+  const val = (e.target && e.target.value) || "";
+  let _product = { ...product };
+  _product[`${name}`] = val;
+
+  setProduct(_product);
+};
+
+const saveProduct = (e) => {
+  setSubmitted(true);       
+  // handleSaveMomento(e)
+  setNewProductsDialog(!newProductsDialog)
+}
+
+// ---------------------------------------------------------------------------------------
+
+
+  // -----------------------------------------------------
+  const openNew = () => {
+    setProduct(emptyProduct);
+    setSubmitted(false);
+    setProductDialog(true);
+    setOpenModal(!openModal)
+    setNewProductsDialog(true)
+  }
+
+  const confirmDeleteSelected = () => {
+    setDeleteProductsDialog(true);
+  }
+
+
+  const leftToolbarTemplate = () => {
+    return (
+        <React.Fragment>
+            <Button label="Novo" icon="pi pi-plus" className="p-button-success mr-2" onClick={openNew} />
+            <Button label="Deletar" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
+        </React.Fragment>
+    )
+  }
+
+  
+  const header = (
+    <div className="table-header">
+        <h5 className="mx-0 my-1">Pesquisar profissional</h5>
+        <span className="p-input-icon-left">
+            <i className="pi pi-search" />
+            <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Search..." />
+        </span>
+    </div>
+  );
   
   return (
     <div className="App">
@@ -21,7 +136,77 @@ function CadastroProfissional() {
           <HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem' }}/>
         </Title>
         <div className="container-dash">
-          <Register formulario={'profissional'}/>
+          {/* <Register formulario={'profissional'}/> */}
+
+          <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
+
+          <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
+              dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+              globalFilter={globalFilter} header={header} responsiveLayout="scroll">
+              <Column selectionMode="multiple" headerStyle={{ width: '3rem' }} exportable={false}></Column>
+              <Column field="nomeCompleto" header="Nome Completo" sortable style={{ minWidth: '12rem' }}></Column>
+              <Column field="email" header="E-mail" sortable style={{ minWidth: '7rem' }}></Column>
+              <Column field="telefone" header="Telefone com DDD" sortable style={{ minWidth: '14rem' }}></Column>
+              <Column field="cpf" header="CPF" sortable style={{ minWidth: '5rem' }}></Column>
+              <Column field="numeroConselho" header="Número do Conselho" sortable style={{ minWidth: '14rem' }}></Column>
+              <Column field="regiaoConselho" header="Região que atende" sortable style={{ minWidth: '13rem' }}></Column>
+              <Column field="cep" header="CEP" sortable style={{ minWidth: '5rem' }}></Column>
+              <Column field="endereco" header="Endereço" sortable style={{ minWidth: '8rem' }}></Column>
+              <Column field="numero" header="Número" sortable style={{ minWidth: '6rem' }}></Column>
+              <Column field="complemento" header="complemento" sortable style={{ minWidth: '7rem' }}></Column>
+              <Column field="uf" header="UF" sortable style={{ minWidth: '3rem' }}></Column>
+              <Column field="cidade" header="Cidade" sortable style={{ minWidth: '6rem' }}></Column>
+              <Column field="bairro" header="Bairro" sortable style={{ minWidth: '6rem' }}></Column>
+              <Column field="codigoBanco" header="Código Banco" sortable style={{ minWidth: '12rem' }}></Column>
+              <Column field="banco" header="Banco" sortable style={{ minWidth: '8rem' }}></Column>
+              <Column field="agencia" header="Agência" sortable style={{ minWidth: '8rem' }}></Column>
+              <Column field="conta" header="Conta" sortable style={{ minWidth: '8rem' }}></Column>
+              <Column field="tipoConta" header="Tipo de Conta CC/POP" sortable style={{ minWidth: '14rem' }}></Column>
+              <Column field="especialidade" header="Especialidade" sortable style={{ minWidth: '12rem' }}></Column>
+              <Column field="bloqueioProfissional" header="Bloqueio do Profissional" sortable style={{ minWidth: '18rem' }}></Column>
+              <Column field="zonaNorte" header="Zona Norte" sortable style={{ minWidth: '10rem' }}></Column>
+              <Column field="zonaLeste" header="Zona Leste" sortable style={{ minWidth: '10rem' }}></Column>
+              <Column field="zonaSul" header="Zona Sul" sortable style={{ minWidth: '10rem' }}></Column>
+              <Column field="zonaOeste" header="Zona Oeste" sortable style={{ minWidth: '10rem' }}></Column>
+          </DataTable>
+
+
+        {newProductsDialog &&
+
+              <Dialog
+              visible={newProductsDialog}
+              style={{ width: "450px" }}
+              header="Nome momento"
+              modal
+              className="card p-fluid"
+              footer={productDialogFooter}
+              onHide={hideDialog}
+              >
+              <div className="field">
+                  <TextField
+                      id="outlined-name"
+                      label="Nome completo"
+                      // value={novoMomento}
+                      // onChange={(e) => setNovoMomento(e.target.value)}
+                      margin="normal"
+                      variant="outlined"
+                  />
+                   <TextField
+                      id="outlined-name"
+                      label="E-mail"
+                      // value={novoMomento}
+                      // onChange={(e) => setNovoMomento(e.target.value)}
+                      margin="normal"
+                      variant="outlined"
+                  />
+              </div>
+              {/* <div className="field">
+                 
+              </div> */}
+              </Dialog>
+              }
         </div>
       </div>
     </div>
