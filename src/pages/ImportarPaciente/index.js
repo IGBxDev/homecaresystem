@@ -23,13 +23,15 @@ const ImportarPaciente = () => {
     const [totalSize, setTotalSize] = useState(0);
     const toast = useRef(null);
     const fileUploadRef = useRef(null);
-
-    const onUpload = (e) => {
-        console.log(`Event: ${e.file}`)
     const [fileName, setFileName]= useState(null)
     const [fileData, setFileData] = useState(null)
     const [fileJsonData, setFileJsonData]= useState(null)
+    
+    const onUpload = (e) => {
+        console.log(`Event: ${e.file}`)
+    
     let fileOnRemove = null
+    
     const onUpload = () => {
         console.log("Upload do arquivo")
         toast.current.show({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
@@ -208,7 +210,7 @@ const ImportarPaciente = () => {
                     uploadLabel='Enviar'
                     cancelLabel='Cancelar'
                     // uploadHandler={invoiceUploadHandler}
-                    onUpload={onUpload}
+                    // onUpload={onUpload}
                     // onRemove={(e)=> onRemove }
                     emptyTemplate={<p className="m-0">Arraste e solte os arquivos aqui para fazer o upload.</p>} />
                 </div>
