@@ -8,6 +8,7 @@ import UserForm from '../../components/UserForm/UserForm'
 //css
 import './style.css';
 import './dataTable.css'
+import './popUp.css'
 
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
@@ -116,7 +117,7 @@ const saveProduct = (e) => {
         </React.Fragment>
     )
   }
-
+  
   
   const header = (
     <div className="table-header">
@@ -127,6 +128,48 @@ const saveProduct = (e) => {
         </span>
     </div>
   );
+
+  const popUpCadastroProfissional = (
+    <Dialog visible={newProductsDialog} style={{ width: "1000px" }} header="Novo profissional" modal className="card p-fluid" footer={productDialogFooter} onHide={hideDialog} >
+      
+      <label htmlFor="name">Dados Pessoais</label>
+      <div className="field">        
+        <TextField className='info-profissional' label="Nome completo" margin="normal"variant="outlined" />
+        <TextField className='info-profissional' label="E-mail" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="Telefone com DDD" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="CPF" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="Número do Conselho" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="Região que atende" margin="normal" variant="outlined" />
+      </div>
+
+      <label htmlFor="name">Endereço</label>
+      <div className="field">        
+        <TextField className='info-profissional' label="CEP" margin="normal"variant="outlined" />
+        <TextField className='info-profissional' label="Endereço" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="Número" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="Complemento" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="UF" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="Cidade" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="Bairro" margin="normal" variant="outlined" />
+      </div>     
+    
+      <label htmlFor="name">Dados Bancários</label>
+      <div className="field">        
+        <TextField className='info-profissional' label="Banco" margin="normal"variant="outlined" />
+        <TextField className='info-profissional' label="Agência" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="Conta" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' label="Tipo de conta cc/poup" margin="normal" variant="outlined" />
+      </div>  
+
+      <label htmlFor="name">Demais informações</label>
+      <div className="field">        
+        <TextField className='info-profissional' label="Especialidades" margin="normal"variant="outlined" />
+        <TextField className='info-profissional' label="Profissional bloqueado?" margin="normal" variant="outlined" />        
+      </div>  
+
+
+    </Dialog>
+  )
   
   return (
     <div className="App">
@@ -136,8 +179,7 @@ const saveProduct = (e) => {
           <HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem' }}/>
         </Title>
         <div className="container-dash">
-          {/* <Register formulario={'profissional'}/> */}
-
+          
           <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
 
           <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
@@ -151,7 +193,7 @@ const saveProduct = (e) => {
               <Column field="telefone" header="Telefone com DDD" sortable style={{ minWidth: '14rem' }}></Column>
               <Column field="cpf" header="CPF" sortable style={{ minWidth: '5rem' }}></Column>
               <Column field="numeroConselho" header="Número do Conselho" sortable style={{ minWidth: '14rem' }}></Column>
-              <Column field="regiaoConselho" header="Região que atende" sortable style={{ minWidth: '13rem' }}></Column>
+              <Column field="regiaoQueAtende" header="Região que atende" sortable style={{ minWidth: '13rem' }}></Column>
               <Column field="cep" header="CEP" sortable style={{ minWidth: '5rem' }}></Column>
               <Column field="endereco" header="Endereço" sortable style={{ minWidth: '8rem' }}></Column>
               <Column field="numero" header="Número" sortable style={{ minWidth: '6rem' }}></Column>
@@ -173,40 +215,7 @@ const saveProduct = (e) => {
           </DataTable>
 
 
-        {newProductsDialog &&
-
-              <Dialog
-              visible={newProductsDialog}
-              style={{ width: "450px" }}
-              header="Nome momento"
-              modal
-              className="card p-fluid"
-              footer={productDialogFooter}
-              onHide={hideDialog}
-              >
-              <div className="field">
-                  <TextField
-                      id="outlined-name"
-                      label="Nome completo"
-                      // value={novoMomento}
-                      // onChange={(e) => setNovoMomento(e.target.value)}
-                      margin="normal"
-                      variant="outlined"
-                  />
-                   <TextField
-                      id="outlined-name"
-                      label="E-mail"
-                      // value={novoMomento}
-                      // onChange={(e) => setNovoMomento(e.target.value)}
-                      margin="normal"
-                      variant="outlined"
-                  />
-              </div>
-              {/* <div className="field">
-                 
-              </div> */}
-              </Dialog>
-              }
+          {newProductsDialog && popUpCadastroProfissional}
         </div>
       </div>
     </div>

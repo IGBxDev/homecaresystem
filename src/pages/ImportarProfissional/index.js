@@ -121,7 +121,7 @@ const ImportarProfissional = () => {
         <div className="App">
             <Header />
             <div className={`content${isHumburguerActive? '-active' : '' }`}>
-                <Title nome="Importador de profissionais">
+                <Title nome="Importador dados para o sistema">
                     <FiTrendingUp size={25} />
                 </Title>
                 <Toast ref={toast}></Toast>

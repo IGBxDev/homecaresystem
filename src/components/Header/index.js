@@ -13,6 +13,26 @@ import IMGLogo from '../../assets/menuLateral/serven-close.png'
 import IMGHamburguer from '../../assets/menuLateral/Hamburguer.png'
 import IMGSevenLogo from '../../assets/menuLateral/serven.png'
 
+
+import { 
+    FcFolder, 
+    FcHome, 
+    FcOpenedFolder,
+    FcCalculator, 
+    FcBullish, 
+    FcSettings, 
+    FcBusinessman,
+    FcServices,
+    FcBarChart,
+    FcDoughnutChart,
+    FcList,
+    FcRedo,
+    FcPortraitMode,
+    FcPlus,
+    FcEngineering,
+    FcPackage
+} from "react-icons/fc";
+
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 
@@ -32,9 +52,7 @@ function Header() {
             </div>
 
             <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <img 
-                    className='humburguer' 
-                    src={IMGHamburguer} 
+                <FcList size={30} 
                     onClick={() => 
                         { 
                             setIsHumburguerActive(!isHumburguerActive);  
@@ -47,53 +65,52 @@ function Header() {
             </div>
 
             <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <Link to="/dashboard" onClick={() => setIsHumburguerActive(true)}> <img src={IMGHome} /> </Link>
+                <Link to="/dashboard" onClick={() => setIsHumburguerActive(true)}> <FcBarChart size={30}/> </Link>
                 <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}><Link to="/dashboard">Dashboard</Link></span>
             </div>
 
             <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <Link to="/dashboard" onClick={() => setIsHumburguerActive(true)}> <PointOfSaleIcon sx={{ fontSize: 35, color: 'white' }}/> </Link>
+                <Link to="/dashboard" onClick={() => setIsHumburguerActive(true)}> <FcCalculator size={30}/> </Link>
                 <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}><Link to="/dashboard">Financeiro</Link></span>
             </div>
 
             <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <Link to="/dashboard" onClick={() => setIsHumburguerActive(true)}> <AssessmentIcon sx={{ fontSize: 35, color: 'white' }}/> </Link>
+                <Link to="/dashboard" onClick={() => setIsHumburguerActive(true)}> <FcDoughnutChart size={30}/> </Link>
                 <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}><Link to="/dashboard">Relatórios</Link></span>
             </div>
 
 
             <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
                 <button className={`btn-lateral${isHumburguerActive ? '-active' : ''}`} onClick={() => { setIsModel(!isModel) }}>
-                    <img src={IMGFolder} onClick={() => setIsHumburguerActive(true)} />
+                    <FcOpenedFolder size={30} onClick={() => setIsHumburguerActive(true)} />
                 </button>
-                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }} onClick={() => { setIsModel(!isModel) }} >Modelos</span>
+                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }} onClick={() => { setIsModel(!isModel) }} >Sistema importação</span>
             </div>
 
             {isModel &&
                 <ul className={`Sub-menu${isHumburguerActive ? '-active' : ''}`}>
-                    <li><Link to="/importarPaciente" className="Sub-menu-item"><img src={IMGFolder} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Importar Paciente</span></Link></li>
-                    <li><Link to="/importarProfissional" className="Sub-menu-item"><img src={IMGFolder} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Importar Profissional</span></Link></li>
+                    <li><Link to="/importarProfissional" className="Sub-menu-item"><FcFolder size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Modelo</span></Link></li>
                 </ul>
             }
 
             <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
                 <button className={`btn-lateral${isHumburguerActive ? '-active' : ''}`} onClick={() => { setIsConfig(!isConfig) }}>
-                    <img src={IMGConfig} onClick={() => setIsHumburguerActive(true)} />
+                    <FcEngineering size={30} onClick={() => setIsHumburguerActive(true)} />
                 </button>
                 <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }} onClick={() => { setIsConfig(!isConfig) }} >Configurações</span>
             </div>
 
             {isConfig &&
                 <ul className={`Sub-menu${isHumburguerActive ? '-active' : ''}`}>
-                    <li><Link to="/cadastroProfissional" className="Sub-menu-item"><FiUserPlus color="FFF" size={24} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar profissional</span></Link></li>
-                    <li><Link to="/cadastroPaciente" className="Sub-menu-item"><FiUserPlus color="FFF" size={24} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar paciente</span></Link></li>
-                    <li><Link to="/cadastroConvenio" className="Sub-menu-item"><FiBriefcase color="FFF" size={24} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar convênio</span></Link></li>
-                    <li><Link to="/cadastroFrequencia" className="Sub-menu-item"><FiPlusCircle color="FFF" size={24} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar frequência</span></Link></li>
+                    <li><Link to="/cadastroProfissional" className="Sub-menu-item"><FcBusinessman  size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar profissional</span></Link></li>
+                    <li><Link to="/cadastroPaciente" className="Sub-menu-item"><FcBusinessman size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar paciente</span></Link></li>
+                    <li><Link to="/cadastroConvenio" className="Sub-menu-item"><FcPackage size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar convênio</span></Link></li>
+                    <li><Link to="/cadastroFrequencia" className="Sub-menu-item"><FcPackage size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar frequência</span></Link></li>
                 </ul>
             }
 
             <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''} signOut `} onClick={() => { signOut() }}>
-                <img src={IMGSignOut} />
+                <FcRedo size={30}  />
                 <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Sair</span>
             </div>
 

@@ -27,8 +27,6 @@ const ImportarPaciente = () => {
     const [fileData, setFileData] = useState(null)
     const [fileJsonData, setFileJsonData]= useState(null)
     
-    const onUpload = (e) => {
-        console.log(`Event: ${e.file}`)
     
     let fileOnRemove = null
     
@@ -217,6 +215,6 @@ const ImportarPaciente = () => {
             </div>
         </div>
     )
-}}
+}
 
 export default ImportarPaciente
