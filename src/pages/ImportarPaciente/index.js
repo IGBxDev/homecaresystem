@@ -7,13 +7,13 @@ import React, { useRef, useState, useContext } from 'react';
 import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
 import { ProgressBar } from 'primereact/progressbar';
-import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
 import { AuthContext } from '../../contexts/auth'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
 import { FiTrendingUp } from 'react-icons/fi'
+import { Button } from 'primereact/button'
 import { extensoesPermitidas } from '../../utils';
 import * as XLSX from 'xlsx';
 import { useEventCallback } from '@mui/material';
@@ -26,7 +26,10 @@ const ImportarPaciente = () => {
     const [fileName, setFileName]= useState(null)
     const [fileData, setFileData] = useState(null)
     const [fileJsonData, setFileJsonData]= useState(null)
+    
+    
     let fileOnRemove = null
+    
     const onUpload = () => {
         console.log("Upload do arquivo")
         toast.current.show({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
@@ -130,9 +133,35 @@ const ImportarPaciente = () => {
         }
     }
 
-    const chooseOptions = {label: '', icon: 'pi pi-fw pi-images', iconOnly: true, className: 'custom-choose-btn p-button-rounded p-button-outlined'};
-    const uploadOptions = {label: '', icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined'};
-    const cancelOptions = {label: '', icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined'};
+    const chooseOptions = {label: 'Choose', icon: 'pi pi-fw pi-plus'};
+    const uploadOptions = {label: 'Uplaod', icon: 'pi pi-upload', className: 'p-button-success'};
+    const cancelOptions = {label: 'Cancel', icon: 'pi pi-times', className: 'p-button-danger'};
+
+    const invoiceUploadHandler = (event) => {
+        console.log(`meu arquivo: ${event.target}`)
+        // const [file] = files;
+        // const fileReader = new FileReader();
+        // fileReader.onload = (e) => {
+        //     uploadInvoice(e.target.result);
+        // };
+        // fileReader.readAsDataURL(file);
+    };
+
+    const uploadInvoice = async (invoiceFile) => {
+        let formData = new FormData();
+        formData.append('invoiceFile', invoiceFile);
+    
+        const response = await fetch(`orders/${'orderId'}/uploadInvoiceFile`,
+            {
+                method: 'POST',
+                body: formData
+            },
+        );
+    };
+
+    const myUploader = (event) => {
+        console.log(`meu arquivo: ${JSON.stringify(event.options.props.url)}`)
+    }
 
     const uploadHandler = async (e) =>{
      
@@ -160,17 +189,17 @@ const ImportarPaciente = () => {
         <div className="App">
              <Header />
              <div className={`content${isHumburguerActive? '-active' : '' }`}>
-             <Title nome="Importador de paciente">
-                <FiTrendingUp size={25} />
-            </Title>
+                <Title nome="Importador de paciente">
+                    <FiTrendingUp size={25} />
+                </Title>
 
-                <Toast ref={toast}></Toast>
-
-                <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-                <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-                <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
 
                 <div className="card">
+                <Button label="Selecione um arquivo" icon="pi pi-fw pi-plus" type='file' />
+                <Button label="Upload" icon="pi pi-upload" className='p-button-success'/>
+                <Button label="Cancelar" icon="pi pi-times" className='p-button-danger' />
+ 
+                <FileUpload name="demo" url="./Importador.xlsx" customUpload uploadHandler={myUploader} />
                     <FileUpload 
                     itemTemplate={itemTemplate}
                     customUpload={true}
@@ -178,7 +207,8 @@ const ImportarPaciente = () => {
                     chooseLabel='Selecione um arquivo'
                     uploadLabel='Enviar'
                     cancelLabel='Cancelar'
-                    onUpload={onUpload}
+                    // uploadHandler={invoiceUploadHandler}
+                    // onUpload={onUpload}
                     // onRemove={(e)=> onRemove }
                     emptyTemplate={<p className="m-0">Arraste e solte os arquivos aqui para fazer o upload.</p>} />
                 </div>
