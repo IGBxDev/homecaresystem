@@ -3,7 +3,7 @@ import { AuthContext } from '../../contexts/auth'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
 import HowToRegSharpIcon from '@mui/icons-material/HowToRegSharp';
-import UserForm from '../../components/UserForm/UserForm'
+
 
 //css
 import './style.css';
