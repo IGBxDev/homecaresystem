@@ -70,7 +70,7 @@ const productDialogFooter = (
       label="Salvar"
       icon="pi pi-check"
       className="p-button-text"
-      onClick={(e) => saveProduct(e)}
+      onClick={(e) => saveProfissional(e)}
     />
   </React.Fragment>
 );
@@ -90,9 +90,8 @@ const onInputChange = (e, name) => {
   setProduct(_product);
 };
 
-const saveProduct = (e) => {
+const saveProfissional = (e) => {
   setSubmitted(true);       
-  // handleSaveMomento(e)
   setNewProductsDialog(!newProductsDialog)
 }
 

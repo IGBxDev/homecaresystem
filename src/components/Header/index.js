@@ -41,9 +41,19 @@ import 'primeicons/primeicons.css'
 
 function Header() {
 
-    const { user, signOut, isHumburguerActive, setIsHumburguerActive } = useContext(AuthContext);
-    const [isConfig, setIsConfig] = useState(false);
-    const [isModel, setIsModel] = useState(false);
+    const { user, signOut, isHumburguerActive, setIsHumburguerActive, isSelected, setIsSelected,  isConfig, setIsConfig, isModel, setIsModel } = useContext(AuthContext);
+
+    const setConfigMenu = (itemMenu) => {
+        setIsHumburguerActive(!isHumburguerActive)
+        setIsConfig(false)
+        setIsModel(false);
+        setIsSelected(itemMenu)
+    }
+
+    const setClickMenu = (itemMenu) => {
+        setIsSelected(itemMenu)
+        setIsHumburguerActive(true)
+    }
 
     return (<>
         <div className={`sidebar ${isHumburguerActive ? 'sidebar-active' : ''}`}>
@@ -51,68 +61,54 @@ function Header() {
                 {!isHumburguerActive ? <img className='pact-logo' src={IMGLogo} /> : <img className='pact-logo' src={IMGSevenLogo} />}
             </div>
 
-            <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <FcList size={30} 
-                    onClick={() => 
-                        { 
-                            setIsHumburguerActive(!isHumburguerActive);  
-                            setIsConfig(false);
-                            setIsModel(false);
-                        } 
-                    } 
-                />
-                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }} onClick={() => setIsHumburguerActive(!isHumburguerActive)}>Menu</span>
-            </div>
+            {/* Menu principal */}
+            <Link to={''} onClick={() => setConfigMenu(1)} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 1 ? 'selected' : '' }`}>
+                <FcList size={30} />
+                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }} >Menu</span>
+            </Link>
+                
+            <Link to={'/dashboard'} onClick={() => setClickMenu(2)} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 2 ? 'selected' : '' }`}>
+                <FcBarChart size={30}/>
+                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Dashboard</span>
+            </Link>
 
-            <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <Link to="/dashboard" onClick={() => setIsHumburguerActive(true)}> <FcBarChart size={30}/> </Link>
-                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}><Link to="/dashboard">Dashboard</Link></span>
-            </div>
+            <Link to={'/dashboard'} onClick={() =>  setClickMenu(3)} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 3 ? 'selected' : '' }`}>
+                <FcCalculator size={30}/>
+                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Financeiro</span>
+            </Link>
 
-            <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <Link to="/dashboard" onClick={() => setIsHumburguerActive(true)}> <FcCalculator size={30}/> </Link>
-                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}><Link to="/dashboard">Financeiro</Link></span>
-            </div>
+            <Link to={'/dashboard'} onClick={() =>  setClickMenu(4)} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 4 ? 'selected' : '' }`}>
+                <FcDoughnutChart size={30}/>
+                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Relatórios</span>
+            </Link>
 
-            <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <Link to="/dashboard" onClick={() => setIsHumburguerActive(true)}> <FcDoughnutChart size={30}/> </Link>
-                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}><Link to="/dashboard">Relatórios</Link></span>
-            </div>
-
-
-            <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <button className={`btn-lateral${isHumburguerActive ? '-active' : ''}`} onClick={() => { setIsModel(!isModel) }}>
-                    <FcOpenedFolder size={30} onClick={() => setIsHumburguerActive(true)} />
-                </button>
-                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }} onClick={() => { setIsModel(!isModel) }} >Sistema importação</span>
-            </div>
+            <Link to={''} onClick={() => { setClickMenu(5); setIsModel(!isModel) }} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 5 ? 'selected' : '' }`}>
+                {isModel? <FcOpenedFolder size={30}/> : <FcFolder size={30} /> }
+                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Sistema importação</span>
+            </Link>
 
             {isModel &&
-                <ul className={`Sub-menu${isHumburguerActive ? '-active' : ''}`}>
-                    <li><Link to="/importarProfissional" className="Sub-menu-item"><FcFolder size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Modelo</span></Link></li>
-                </ul>
+                <Link to="/importarProfissional" onClick={()=> setClickMenu(6)} className={`Sub-menu${isHumburguerActive ? '-active' : ''} ${isSelected === 6 ? 'selected' : '' }`}><FcFolder size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Modelo</span></Link>
             }
 
-            <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''}`}>
-                <button className={`btn-lateral${isHumburguerActive ? '-active' : ''}`} onClick={() => { setIsConfig(!isConfig) }}>
-                    <FcEngineering size={30} onClick={() => setIsHumburguerActive(true)} />
-                </button>
-                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }} onClick={() => { setIsConfig(!isConfig) }} >Configurações</span>
-            </div>
+            <Link to={''} onClick={() => {  setClickMenu(7); setIsConfig(!isConfig) }} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 7 ? 'selected' : '' }`}>
+               <FcEngineering size={30} />
+                <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Configurações</span>
+            </Link>
 
             {isConfig &&
-                <ul className={`Sub-menu${isHumburguerActive ? '-active' : ''}`}>
-                    <li><Link to="/cadastroProfissional" className="Sub-menu-item"><FcBusinessman  size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar profissional</span></Link></li>
-                    <li><Link to="/cadastroPaciente" className="Sub-menu-item"><FcBusinessman size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar paciente</span></Link></li>
-                    <li><Link to="/cadastroConvenio" className="Sub-menu-item"><FcPackage size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar convênio</span></Link></li>
-                    <li><Link to="/cadastroFrequencia" className="Sub-menu-item"><FcPackage size={30} /><span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Cadastrar frequência</span></Link></li>
-                </ul>
+                <>
+                <Link to="/cadastroProfissional" onClick={()=> setClickMenu(8)}  className={`Sub-menu${isHumburguerActive ? '-active' : ''} ${isSelected === 8 ? 'selected' : '' }`}><FcBusinessman size={30} /><span >Cadastrar profissional</span></Link>
+                <Link to="/cadastroPaciente" onClick={()=> setClickMenu(9)} className={`Sub-menu${isHumburguerActive ? '-active' : ''} ${isSelected === 9 ? 'selected' : '' }`}><FcBusinessman size={30} /><span >Cadastrar paciente</span></Link>
+                <Link to="/cadastroConvenio" onClick={()=> setClickMenu(10)} className={`Sub-menu${isHumburguerActive ? '-active' : ''} ${isSelected === 10 ? 'selected' : '' }`}><FcPackage size={30} /><span >Cadastrar convênio</span></Link>
+                <Link to="/cadastroFrequencia" onClick={()=> setClickMenu(11)} className={`Sub-menu${isHumburguerActive ? '-active' : ''} ${isSelected === 11 ? 'selected' : '' }`}><FcPackage size={30} /><span >Cadastrar frequência</span></Link>
+                </>
             }
 
-            <div className={`sidebar-icons${isHumburguerActive ? '-active' : ''} signOut `} onClick={() => { signOut() }}>
+            <Link to={''} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} signOut `} onClick={() => { signOut() }}>
                 <FcRedo size={30}  />
                 <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Sair</span>
-            </div>
+            </Link>
 
         </div>
         <div className='header'>
