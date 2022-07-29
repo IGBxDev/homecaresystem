@@ -24,43 +24,43 @@ function Dashboard() {
         <div className="container-dash">
         <div className="row">
 
-<Card 
-  classCol={''} 
-  categoria={'Atendimento em aberto'} 
-  essencial={'5'} 
-  classBorderLeft={'primary'} 
-  calssRow={''}
-  classComment={'fa-calendar'}
-/>
+        <Card 
+          classCol={''} 
+          categoria={'Atendimento em aberto'} 
+          essencial={'5'} 
+          classBorderLeft={'primary'} 
+          calssRow={''}
+          classComment={'fa-calendar'}
+        />
 
-<Card 
-  classCol={'col-md-6 mb-4'} 
-  categoria={'Atendimento em capitação'} 
-  essencial={'3'} 
-  classBorderLeft={'success'} 
-  calssRow={'no-gutters'}
-  classComment={'fa-dollar-sign'}
-/>
+        <Card 
+          classCol={'col-md-6 mb-4'} 
+          categoria={'Atendimento em capitação'} 
+          essencial={'3'} 
+          classBorderLeft={'success'} 
+          calssRow={'no-gutters'}
+          classComment={'fa-dollar-sign'}
+        />
 
-<Card 
-  classCol={'col-md-6 mb-4'} 
-  categoria={'Atendimento finalizado'} 
-  essencial={'2'} 
-  classBorderLeft={'info'} 
-  calssRow={'no-gutters'}
-  classComment={'fa-clipboard-list'}
-/>
+        <Card 
+          classCol={'col-md-6 mb-4'} 
+          categoria={'Atendimento finalizado'} 
+          essencial={'2'} 
+          classBorderLeft={'info'} 
+          calssRow={'no-gutters'}
+          classComment={'fa-clipboard-list'}
+        />
 
-<Card 
-  classCol={'col-md-6 mb-4'} 
-  categoria={'Furos'} 
-  essencial={'0'} 
-  classBorderLeft={'warning'} 
-  calssRow={'no-gutters'}
-  classComment={'fa-comments'}
-/>
+        <Card 
+          classCol={'col-md-6 mb-4'} 
+          categoria={'Furos'} 
+          essencial={'0'} 
+          classBorderLeft={'warning'} 
+          calssRow={'no-gutters'}
+          classComment={'fa-comments'}
+        />
 
-</div>
+        </div>
         </div>
       </div>
     </div>

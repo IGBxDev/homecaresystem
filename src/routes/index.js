@@ -11,6 +11,8 @@ import ImportarProfissional from '../pages/ImportarProfissional'
 import ImportarPaciente from '../pages/ImportarPaciente'
 import CadastroConvenio from '../pages/CadastroConvenio';
 import CadastroFrequencia from '../pages/CadastroFrequencia';
+import Financeiro from '../pages/Financeiro';
+import Relatorios from '../pages/Relatorios';
 
 import Forgot from '../pages/Forgot';
 
@@ -125,6 +127,23 @@ export default function Rotas() {
         element={
           <RequireAuth redirectTo="/" isPrivate>
             <CadastroFrequencia />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/financeiro"
+        element={
+          <RequireAuth redirectTo="/" isPrivate>
+            <Financeiro />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/relatorios"
+        element={
+          <RequireAuth redirectTo="/" isPrivate>
+            <Relatorios />
           </RequireAuth>
         }
       />

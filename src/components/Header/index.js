@@ -72,12 +72,12 @@ function Header() {
                 <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Dashboard</span>
             </Link>
 
-            <Link to={'/dashboard'} onClick={() =>  setClickMenu(3)} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 3 ? 'selected' : '' }`}>
+            <Link to={'/financeiro'} onClick={() =>  setClickMenu(3)} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 3 ? 'selected' : '' }`}>
                 <FcCalculator size={30}/>
                 <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Financeiro</span>
             </Link>
 
-            <Link to={'/dashboard'} onClick={() =>  setClickMenu(4)} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 4 ? 'selected' : '' }`}>
+            <Link to={'/relatorios'} onClick={() =>  setClickMenu(4)} className={`sidebar-icons${isHumburguerActive ? '-active' : ''} ${isSelected === 4 ? 'selected' : '' }`}>
                 <FcDoughnutChart size={30}/>
                 <span style={{ display: `${isHumburguerActive ? '' : 'none'}` }}>Relatórios</span>
             </Link>
