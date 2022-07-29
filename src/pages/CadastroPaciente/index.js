@@ -21,6 +21,7 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 
 import Register from '../../components/Register';
+import useForm from '../../hooks/useForm';
 function CadastroPaciente() {
 
   const { user, isHumburguerActive } = useContext(AuthContext);
@@ -34,18 +35,7 @@ function CadastroPaciente() {
   const [openModal, setOpenModal]= useState(false)
   const [newProductsDialog, setNewProductsDialog] = useState(false);
   const dt = useRef(null);
-
-  let emptyProduct = {
-    id: null,
-    name: '',
-    image: null,
-    description: '',
-    category: null,
-    price: 0,
-    quantity: 0,
-    rating: 0,
-    inventoryStatus: 'INSTOCK'
-  };
+  const [dataForm, handleInputChange, clear] = useForm({});
 
 // --------------------------------------------------------------------------------------
 const productDialogFooter = (
@@ -60,7 +50,7 @@ const productDialogFooter = (
       label="Salvar"
       icon="pi pi-check"
       className="p-button-text"
-      onClick={(e) => saveProduct(e)}
+      onClick={(e) => savePaciente(e)}
     />
   </React.Fragment>
 );
@@ -80,8 +70,9 @@ const onInputChange = (e, name) => {
   setProduct(_product);
 };
 
-const saveProduct = (e) => {
-  setSubmitted(true);       
+const savePaciente = (e) => {
+  setSubmitted(true);   
+  console.log("dados paciente", dataForm)    
   // handleSaveMomento(e)
   setNewProductsDialog(!newProductsDialog)
 }
@@ -91,7 +82,6 @@ const saveProduct = (e) => {
 
   // -----------------------------------------------------
   const openNew = () => {
-    setProduct(emptyProduct);
     setSubmitted(false);
     setProductDialog(true);
     setOpenModal(!openModal)
@@ -128,25 +118,25 @@ const saveProduct = (e) => {
       
       <label htmlFor="name">Dados Pessoais</label>
       <div className="field">        
-        <TextField className='info-profissional' label="Nome completo" margin="normal"variant="outlined" />
-        <TextField className='info-profissional' label="E-mail" margin="normal" variant="outlined" />
-        <TextField className='info-profissional' label="Telefone com DDD" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='nomeCompletto' value={dataForm.nomeCompletto} onChange={(e)=> handleInputChange(e)} label="Nome completo" margin="normal"variant="outlined" />
+        <TextField className='info-profissional' name='email' value={dataForm.email} onChange={(e)=> handleInputChange(e)} label="E-mail" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='telefoneDDD' value={dataForm.telefoneDDD} onChange={(e)=> handleInputChange(e)} label="Telefone com DDD" margin="normal" variant="outlined" />
       </div>
 
       <label htmlFor="name">Endereço</label>
       <div className="field">        
-        <TextField className='info-profissional' label="CEP" margin="normal"variant="outlined" />
-        <TextField className='info-profissional' label="Endereço" margin="normal" variant="outlined" />
-        <TextField className='info-profissional' label="Número" margin="normal" variant="outlined" />
-        <TextField className='info-profissional' label="Complemento" margin="normal" variant="outlined" />
-        <TextField className='info-profissional' label="UF" margin="normal" variant="outlined" />
-        <TextField className='info-profissional' label="Cidade" margin="normal" variant="outlined" />
-        <TextField className='info-profissional' label="Bairro" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='cep' value={dataForm.cep} onChange={(e)=> handleInputChange(e)} label="CEP" margin="normal"variant="outlined" />
+        <TextField className='info-profissional' name='endereco' value={dataForm.endereco} onChange={(e)=> handleInputChange(e)} label="Endereço" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='numero' value={dataForm.numero} onChange={(e)=> handleInputChange(e)} label="Número" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='complemento' value={dataForm.complemento} onChange={(e)=> handleInputChange(e)} label="Complemento" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='uf' value={dataForm.uf} onChange={(e)=> handleInputChange(e)} label="UF" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='cidade' value={dataForm.cidade} onChange={(e)=> handleInputChange(e)} label="Cidade" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='bairro' value={dataForm.bairro} onChange={(e)=> handleInputChange(e)} label="Bairro" margin="normal" variant="outlined" />
       </div>     
   
       <label htmlFor="name">Demais informações</label>
       <div className="field">        
-        <InputTextarea id="description" value={''} onChange={(e) => onInputChange(e, 'description')} required rows={3} cols={20} />     
+        <InputTextarea id="description" name='demaisInformacoes' value={dataForm.demaisInformacoes} onChange={(e)=> handleInputChange(e)} required rows={3} cols={20} />     
       </div>  
 
 

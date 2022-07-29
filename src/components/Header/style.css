@@ -26,10 +26,15 @@
   padding: 0 1rem;
   justify-content: flex-start;
   align-content: center;
+  
 }
 
 .sidebar-icons-active a{
-  width: 40px;
+  display: flex;
+  width: 100%;
+  align-content: center;
+  align-items: center;
+
 }
 
 .sidebar-icons-active button{
@@ -62,6 +67,20 @@
   justify-content: center;
   height: 40px;
   margin-bottom: 1rem;
+}
+
+.sidebar-icons:hover{
+  height: 40px;
+  background-color: #3e66df;
+}
+
+.sidebar-icons-active:hover{
+  height: 40px;
+  background-color: #3e66df;
+}
+
+.selected{
+  background-color: #3e66df;
 }
 
 .signOut{
@@ -164,24 +183,36 @@
   flex-direction: row;
   align-items: center;
   font-family: 'Roboto', sans-serif;
+  
 }
 
 .Sub-menu-active{
-    color: rgba(255, 255, 255, 0.7);
-    padding: 0 2rem;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-family: 'Roboto', sans-serif;
-    justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: .5rem;
+  height: 40px;
 }
 
-.Sub-menu-active li a:hover{
-  color: var(--white);
+.Sub-menu-active:hover{
+  background-color: #3e66df;
 }
-.Sub-menu-active li a span{
+
+.Sub-menu-active svg{
+  width: 20%;
   padding-left: 1rem;
+}
+
+
+.Sub-menu-active span{
+  width: 70%;
+  padding-left: .5rem;
+}
+
+.Sub-menu-active a:hover{
+  color: var(--white);
 }
 
 .btn-lateral-active{

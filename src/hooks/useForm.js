@@ -8,6 +8,9 @@ const useForm = ( inicialState ) => {
     const handleInputChange = (event) => {
         const {value, name } = event.target;
         setForm({...form, [name]: value });
+        console.log("form",form)
+        console.log("value",value)
+        console.log("name",name)
     }
 
     const clear =() => {
