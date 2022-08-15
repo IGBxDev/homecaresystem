@@ -6,20 +6,17 @@ import PacienteProvider from './contexts/paciente'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import ProfessionalProvider from './contexts/professional'
+import CrudProvider from './contexts/Crud'
 
 function App() {
   return (
     <AuthProvider>
-      <SimulationProvider>
-        <PacienteProvider>
-          <ProfessionalProvider>
-            <BrowserRouter>
-              <ToastContainer autoClose={3000} />
-              <Rotas />
-            </BrowserRouter>
-          </ProfessionalProvider>
-        </PacienteProvider>
-      </SimulationProvider>
+      <CrudProvider>
+        <BrowserRouter>
+          <ToastContainer autoClose={3000} />
+          <Rotas />
+        </BrowserRouter>
+      </CrudProvider>
     </AuthProvider>
   );
 }

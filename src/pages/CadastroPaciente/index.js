@@ -1,5 +1,6 @@
 import React, {useContext, useRef, useState } from 'react'
 import { AuthContext } from '../../contexts/auth'
+// import { CrudContext } from '../../contexts/Crud'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
 import HowToRegSharpIcon from '@mui/icons-material/HowToRegSharp';
@@ -22,8 +23,11 @@ import 'primeflex/primeflex.css';
 
 import Register from '../../components/Register';
 import useForm from '../../hooks/useForm';
+import { useEffect } from 'react'
+
 function CadastroPaciente() {
 
+  // const { getAllPatient, patient } = useContext(CrudContext)
   const { user, isHumburguerActive } = useContext(AuthContext);
   const [submitted, setSubmitted] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState(null);

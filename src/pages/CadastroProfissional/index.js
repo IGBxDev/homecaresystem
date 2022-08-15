@@ -1,5 +1,6 @@
 import React, {useContext, useRef, useState } from 'react'
 import { AuthContext } from '../../contexts/auth'
+import { CrudContext } from '../../contexts/Crud'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
 import HowToRegSharpIcon from '@mui/icons-material/HowToRegSharp';
@@ -25,6 +26,7 @@ import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
 import { MenuItem, TextField } from '@mui/material';
 import useForm from '../../hooks/useForm';
+import { useEffect } from 'react'
 
 let emptyProduct = {
   id: null,
@@ -41,7 +43,8 @@ let emptyProduct = {
 
 
 function CadastroProfissional() {
-
+  
+  const { getAllPatient, patient } = useContext(CrudContext)
   const { user, isHumburguerActive } = useContext(AuthContext);
   const [submitted, setSubmitted] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState(null);
@@ -56,7 +59,9 @@ function CadastroProfissional() {
 
   const [dataForm, handleInputChange, clear] = useForm({});
 
-
+  useEffect(()=>{
+    getAllPatient()
+  },[])
 // --------------------------------------------------------------------------------------
 const productDialogFooter = (
   <React.Fragment>
@@ -173,6 +178,8 @@ const saveProfissional = (e) => {
 
     </Dialog>
   )
+
+  console.log("paciente",patient)
   
   return (
     <div className="App">
@@ -185,8 +192,8 @@ const saveProfissional = (e) => {
           
           <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
 
-          <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
-              dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+          <DataTable ref={dt} value={patient} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
+              dataKey="_id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
               paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
               globalFilter={globalFilter} header={header} responsiveLayout="scroll">
