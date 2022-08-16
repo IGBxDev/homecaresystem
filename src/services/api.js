@@ -16,8 +16,6 @@ export const getCEP = (cep, setDataCEP, setIsLoading) => {
     .then((response)=> { setDataCEP(response.data); console.log("cep", response.data) })
     .catch((error)=> error )
     .finally(()=> setIsLoading(false))
-
-    console.log()
 }
 
 //here the url that you find more information about
