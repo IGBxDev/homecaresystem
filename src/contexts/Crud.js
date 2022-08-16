@@ -7,18 +7,54 @@ export const CrudContext = createContext({})
 
 const CrudProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false)
-    const [patient, setPatient] = useState([])
+    const [professional, setProfessional] = useState([])
 
 
     const baseUrl = "https://homecaresystem-backend.herokuapp.com"
 
-    const getAllPatient = async () => {
+    const getAllProfessional = async () => {
         setIsLoading(true)
-        await axios.get(baseUrl + '/paciente/findAll')
+        await axios.get(baseUrl + '/professional/findAll')
         .then((response)=>{
-            console.log("response data: ",response.data)
-            setPatient(response.data)
-            setIsLoading(false)
+
+            let professional = []
+            if(response.data.length > 0){
+                response.data.forEach((professionalItens, index) => {                    
+                    professional.push({
+                        id: professionalItens._id,
+                        //Dados pessoais
+                            cellphone: professionalItens.cellphone,
+                            cpf: professionalItens.cpf,
+                            email: professionalItens.email,
+                            nameComplete: professionalItens.nameComplete,
+                            numeroConselho: professionalItens.numeroConselho,
+                            especialidade: professionalItens.especialidade,
+                            BloqueiProfissional: professionalItens.BloqueiProfissional,
+                        //Regiao
+                            zonaNorte: professionalItens.regiao.zonaNorte === true? "Sim" : "Não",
+                            zonaLeste: professionalItens.regiao.zonaLeste  === true? "Sim" : "Não",
+                            zonaSul: professionalItens.regiao.zonaSul  === true? "Sim" : "Não",
+                            zonaOeste: professionalItens.regiao.zonaOeste  === true? "Sim" : "Não",
+                        //Endereço
+                            bairro: professionalItens.endereco[0].bairro,
+                            cep: professionalItens.endereco[0].cep,
+                            cidade: professionalItens.endereco[0].cidade,
+                            complemento: professionalItens.endereco[0].complemento,
+                            estado: professionalItens.endereco[0].estado,
+                            numero: professionalItens.endereco[0].numero,
+                            endereco: professionalItens.endereco[0].endereco,
+                            uf: professionalItens.uf,
+                        //Dados bancarios
+                            agencia: professionalItens.contaBancaria[0].agencia,
+                            banco: professionalItens.contaBancaria[0].banco,
+                            codigoBanco: professionalItens.contaBancaria[0].codigoBanco,
+                            numeroConta: professionalItens.contaBancaria[0].numeroConta,
+                            tipo: professionalItens.contaBancaria[0].tipo
+                    })
+                })
+                setProfessional(professional) 
+            }        
+        
         })
         .catch((error)=>{console.error(error)})
         .finally(()=>{
@@ -28,8 +64,8 @@ const CrudProvider = ({ children }) => {
     
     return (
         <CrudContext.Provider value={{
-            getAllPatient,
-            patient
+            getAllProfessional,
+            professional
         }}>
             {children}
         </CrudContext.Provider>
