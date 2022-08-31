@@ -2,10 +2,6 @@
     height: 100vh;
     width: 100vw;
     display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
     background-image: url("../../assets/image/background-7.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -21,7 +17,7 @@
     flex-direction: column;
     background-color: #00000042;
     /* padding: 1rem; */
-    border-radius: 30px;
+    /* border-radius: 30px; */
 }
 
 .logo-login{
@@ -45,37 +41,58 @@
 
 .form-login input{
     padding: 1rem;
+    border-radius: 30px;
+    border: 2px solid white;
+    width: 20rem;
+    height: 50px;
     margin: 0.5rem;
-    border: none;
-    border-radius: 20px;
-    box-shadow: rgb(4 4 4) 0px 5px 10px;
-    height: 4.5rem;
-    width: 25rem;
-    font-size: 25px;
-    color: rgb(40, 23, 228);
+
+    
 }
 
 .form-login button{
     padding: 1rem;
+    border-radius: 30px;
+    border: 2px solid white;
+    width: 20rem;
+    height: 50px;
     margin: 0.5rem;
-    border: none;
-    border-radius: 20px;
-    box-shadow: rgb(4 4 4) 0px 5px 10px;
-    height: 4.5rem;
-    width: 25rem;
-    font-size: 25px;
-    color: rgb(21, 0, 255);
+    color: rgb(160, 158, 168);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 20px;
 }
 
 .form-login button:hover{
-    background-color: rgb(21, 0, 255);
-    color: white;
+    background-color: rgb(212, 211, 219);
+}
+.form-login input:hover{
+    background-color: rgb(212, 211, 219);
+    cursor: pointer;
 }
 
 .form-login h1{
     color: white;
     letter-spacing: 2px;
     font-size: 40px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 38px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.form-login h2{
+    color: white;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 38px;
+    text-align: center;
 }
 
 .esqueci-minha-senha{
@@ -86,8 +103,9 @@
     font-size: 25px;
     color: white;
     font-weight: 500;
+    font-style: normal;
 }
 
 .esqueci-minha-senha a:hover{
-    color: rgb(0, 21, 255);
+    color:  rgb(212, 211, 219);
 }
