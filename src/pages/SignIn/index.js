@@ -35,7 +35,8 @@ function SignIn() {
         </div>
 
         <form className='form-login' onSubmit={handledSubmit}>
-          <h1>Login</h1>
+          <h1>Bem-vindo de volta</h1>
+          <h2>Acessar o sistema</h2>
           <input type="text" placeholder="email@email.com" value={email} onChange={(e) => setEmail(e.target.value)} />
           <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
           <button type="submit">{loadingAuth ? 'Carregando...' : 'Acessar' }</button>
