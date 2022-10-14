@@ -18,7 +18,7 @@ function Relatorios() {
     <div className="App">
       <Header />
       <div className={`content${isHumburguerActive? '-active' : '' }`}>
-        <Title nome="Financeiro - Em construção">
+        <Title nome="Relatórios - Em construção">
           <FiTrendingUp size={25} />
         </Title>
         <div className="container-dash">

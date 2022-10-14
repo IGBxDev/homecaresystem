@@ -1,6 +1,5 @@
 import React, {useContext, useRef, useState } from 'react'
 import { AuthContext } from '../../contexts/auth'
-// import { CrudContext } from '../../contexts/Crud'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
 import HowToRegSharpIcon from '@mui/icons-material/HowToRegSharp';
@@ -10,7 +9,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
-import { MenuItem, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { InputTextarea } from 'primereact/inputtextarea';
 
 
@@ -24,10 +23,11 @@ import 'primeflex/primeflex.css';
 import Register from '../../components/Register';
 import useForm from '../../hooks/useForm';
 import { useEffect } from 'react'
+import { CrudContext } from '../../contexts/Crud';
 
 function CadastroPaciente() {
 
-  // const { getAllPatient, patient } = useContext(CrudContext)
+  const { getAllPatient, patient, isLoading } = useContext(CrudContext)
   const { user, isHumburguerActive } = useContext(AuthContext);
   const [submitted, setSubmitted] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState(null);
@@ -96,6 +96,7 @@ const savePaciente = (e) => {
     setDeleteProductsDialog(true);
   }
 
+  
 
   const leftToolbarTemplate = () => {
     return (
@@ -154,7 +155,7 @@ const savePaciente = (e) => {
           <HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem' }}/>
         </Title>
         <div className="container-dash">
-          
+                    
           <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
 
           <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}

@@ -1,7 +1,7 @@
-.container-center{
+.container-center-forgot{
     height: 100%;
     display:flex;
-    /* justify-content: center;
-    align-items: center; */
+    justify-content: center;
+    align-items: center;
     background-color: #121212;
 }

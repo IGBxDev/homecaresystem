@@ -44,7 +44,7 @@ function SignIn() {
 
         <div className='esqueci-minha-senha'>
           {/* <Link className='register' to="/register">Cadastre-se</Link> */}
-          <Link className ='forgot' to="/forgot">Esqueceu a senha?</Link>
+          {/* <Link className ='forgot' to="/forgot">Esqueceu a senha?</Link> */}
         </div>
       </div>
     </div>
