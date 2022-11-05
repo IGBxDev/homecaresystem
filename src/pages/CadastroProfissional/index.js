@@ -15,9 +15,6 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-
-
-import Register from '../../components/Register';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 import { Column } from 'primereact/column';
@@ -27,7 +24,7 @@ import { Dialog } from 'primereact/dialog';
 import { Checkbox, MenuItem, TextField } from '@mui/material';
 import useForm from '../../hooks/useForm';
 import { useEffect } from 'react'
-import { toast } from 'react-toastify'
+import { ProfessionalBlocked, Specialty, TipoConta } from '../../services/lists'
 
 let emptyProduct = {
   id: null,
@@ -45,7 +42,7 @@ let emptyProduct = {
 
 function CadastroProfissional() {
   
-  const { getAllProfessional, saveProfessional, professional, deleteProfessional } = useContext(CrudContext)
+  const { getAllProfessional, professional, isLoading } = useContext(CrudContext)
   const { user, isHumburguerActive } = useContext(AuthContext);
   const [submitted, setSubmitted] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState(null);
@@ -62,12 +59,13 @@ function CadastroProfissional() {
 
   const dt = useRef(null);
 
-  const [dataForm, handleInputChange, clear] = useForm({});
+  const [form, handleInputChange, clear] = useForm({});
 
   useEffect(()=>{
     getAllProfessional()
   },[])
-  
+
+// --------------------------------------------------------------------------------------
 const productDialogFooter = (
   <React.Fragment>
     <Button
@@ -92,69 +90,9 @@ const hideDialog = () => {
   
 };
 
-const deleteProduct = () => {
-  let deletar = [];
-
-  selectedProducts.forEach(customer => {
-      deletar.push(customer.id)
-  })
-
-  deleteProfessional(deletar);
-
-  setDeleteProductsDialog(false);
-  toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-}
-
-const onInputChange = (e, name) => {
-  const val = (e.target && e.target.value) || "";
-  let _product = { ...product };
-  _product[`${name}`] = val;
-
-  setProduct(_product);
-};
-
-const handleProfissional = (e) => {
-  if(dataForm){
-    let payload = {
-      cellphone: dataForm.cellphone,
-      cpf: dataForm.cpf,
-      email: dataForm.email,
-      nameComplete: dataForm.nameComplete,
-      numeroConselho: dataForm.numeroConselho,
-      especialidade: dataForm.especialidade,
-      BloqueiProfissional: dataForm.BloqueiProfissional,
-  //Regiao
-      regiao: {
-        zonaNorte: zonaNorte,
-        zonaLeste: zonaLeste,
-        zonaSul: zonaSul,
-        zonaOeste: zonaOeste
-      },
-  //Endereço
-      endereco: [{
-        bairro: dataForm.bairro,
-        cep: dataForm.cep,
-        cidade: dataForm.cidade,
-        complemento: dataForm.complemento,
-        estado: dataForm.estado,
-        numero: dataForm.numero,
-        endereco: dataForm.endereco,
-        uf: dataForm.uf
-      }],      
-  //Dados bancarios
-    contaBancaria: [{
-      agencia: dataForm.agencia,
-      banco: dataForm.banco,
-      codigoBanco: dataForm.codigoBanco,
-      numeroConta: dataForm.numeroConta,
-      tipo: dataForm.tipo}]      
-    }
-
-    saveProfessional(payload)
-    setSubmitted(true);       
-    setNewProductsDialog(!newProductsDialog)
-  }
-  
+const saveProfissional = (e) => {
+  setSubmitted(true);       
+  setNewProductsDialog(!newProductsDialog)
 }
 
 // ---------------------------------------------------------------------------------------
@@ -199,12 +137,11 @@ const handleProfissional = (e) => {
       
       <label htmlFor="name">Dados Pessoais</label>
       <div className="field">        
-        <TextField className='info-profissional' label="Nome completo" margin="normal"variant="outlined" name='nameComplete' value={dataForm.nameComplete} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="E-mail" margin="normal" variant="outlined" name='email' value={dataForm.email} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Telefone com DDD" margin="normal" variant="outlined" name='cellphone' value={dataForm.cellphone} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="CPF" margin="normal" variant="outlined" name='cpf' value={dataForm.cpf} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Número do Conselho" margin="normal" variant="outlined" name='numeroConselho' value={dataForm.numeroConselho} onChange={(e)=> handleInputChange(e)}/>
-        {/* <TextField className='info-profissional' label="Região que atende" margin="normal" variant="outlined" name='regiaoAtende' value={dataForm.regiaoAtende} onChange={(e)=> handleInputChange(e)}/> */}
+        <TextField className='info-profissional' label="Nome completo" margin="normal"variant="outlined" name='nomeCompletto' value={form.nomeCompletto} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="E-mail" margin="normal" variant="outlined" name='email' value={form.email} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Telefone com DDD" margin="normal" variant="outlined" name='telefoneDDD' value={form.telefoneDDD} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="CPF" margin="normal" variant="outlined" name='cpf' value={form.cpf} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Número do Conselho" margin="normal" variant="outlined" name='numeroConselho' value={form.numeroConsoleho} onChange={(e)=> handleInputChange(e)}/>
         <Checkbox inputId="cb1" value={zonaNorte} name="zonaNorte"checked={zonaNorte} onChange={()=> setZonaNorte(!zonaNorte)} ></Checkbox>
         <label htmlFor="cb1" className="p-checkbox-label">Zona Norte</label>
         <Checkbox inputId="cb1" value={zonaLeste}  name="zonaLeste" checked={zonaLeste} onChange={()=> setZonaLeste(!zonaLeste)} ></Checkbox>
@@ -217,43 +154,86 @@ const handleProfissional = (e) => {
 
       <label htmlFor="name">Endereço</label>
       <div className="field">        
-        <TextField className='info-profissional' label="CEP" margin="normal"variant="outlined" name='cep' value={dataForm.cep} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Endereço" margin="normal" variant="outlined" name='endereco' value={dataForm.endereco} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Número" margin="normal" variant="outlined" name='numero' value={dataForm.numero} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Complemento" margin="normal" variant="outlined" name='complemento' value={dataForm.complemento} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="UF" margin="normal" variant="outlined" name='uf' value={dataForm.uf} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Cidade" margin="normal" variant="outlined" name='cidade' value={dataForm.cidade} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Bairro" margin="normal" variant="outlined" name='bairro' value={dataForm.bairro} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="CEP" margin="normal"variant="outlined" name='cep' value={form.cep} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Endereço" margin="normal" variant="outlined" name='endereco' value={form.endereco} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Número" margin="normal" variant="outlined" name='numero' value={form.numero} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Complemento" margin="normal" variant="outlined" name='complemento' value={form.complemento} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="UF" margin="normal" variant="outlined" name='uf' value={form.uf} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Cidade" margin="normal" variant="outlined" name='cidade' value={form.cidade} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Bairro" margin="normal" variant="outlined" name='bairro' value={form.bairro} onChange={(e)=> handleInputChange(e)}/>
       </div>     
     
       <label htmlFor="name">Dados Bancários</label>
       <div className="field">        
-        <TextField className='info-profissional' label="Código do Banco" margin="normal"variant="outlined" name='codigoBanco' value={dataForm.codigoBanco} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Banco" margin="normal"variant="outlined" name='banco' value={dataForm.banco} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Agência" margin="normal" variant="outlined" name='agencia' value={dataForm.agencia} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Conta" margin="normal" variant="outlined" name='numeroConta' value={dataForm.numeroConta} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Tipo de conta cc/poup" margin="normal" variant="outlined" name='tipo' value={dataForm.tipo} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Banco" margin="normal"variant="outlined" name='banco' value={form.banco} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Agência" margin="normal" variant="outlined" name='agencia' value={form.agencia} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Conta" margin="normal" variant="outlined" name='conta' value={form.conta} onChange={(e)=> handleInputChange(e)}/>
+       
+        <TextField
+            className='info-profissional'
+            name='tipoConta'
+            select
+            label="Tipo de conta"
+            value={form.tipoConta}
+            onChange={(e)=> handleInputChange(e)}
+            margin="normal"
+            variant="outlined"
+            style={{ width: '21.5%'}}
+          >
+            {TipoConta.map(option => (
+              <MenuItem key={option.id} value={option.value}>
+                  {option.value}
+              </MenuItem>
+            ))}
+        </TextField>
+      
+
       </div>  
 
       <label htmlFor="name">Demais informações</label>
       <div className="field">        
-        <TextField className='info-profissional' label="Especialidades" margin="normal"variant="outlined" name='especialidade' value={dataForm.especialidade} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Profissional bloqueado?" margin="normal" variant="outlined" name='BloqueiProfissional' value={dataForm.BloqueiProfissional} onChange={(e)=> handleInputChange(e)}/>        
+        <TextField
+            className='info-profissional'
+            name='especialidade'
+            select
+            label="Especialidades"
+            value={form.especialidade}
+            onChange={(e)=> handleInputChange(e)}
+            margin="normal"
+            variant="outlined"
+            style={{ width: '25%'}}
+          >
+            {Specialty.map(option => (
+              <MenuItem key={option.label} value={option.value}>
+                  {option.value}
+              </MenuItem>
+            ))}
+        </TextField>
+
+        <TextField
+            className='info-profissional'
+            name='profissionalBloqueio'
+            select
+            label="Profissional bloqueado?"
+            value={form.profissionalBloqueio}
+            onChange={(e)=> handleInputChange(e)}
+            margin="normal"
+            variant="outlined"
+            style={{ width: '25%'}}
+          >
+            {ProfessionalBlocked.map(option => (
+              <MenuItem key={option.label} value={option.value}>
+                  {option.value}
+              </MenuItem>
+            ))}
+        </TextField>
+
+        {/* <TextField className='info-profissional' label="Profissional bloqueado?" margin="normal" variant="outlined" name='profissionalBloqueio' value={form.profissionalBloqueio} onChange={(e)=> handleInputChange(e)}/>         */}
       </div>  
     </Dialog>
   )
 
-  const deleteProductDialogFooter = (
-    <React.Fragment>
-        <Button label="Não" icon="pi pi-times" className="p-button-text" onClick={() => hideDeleteProductDialog()} />
-        <Button label="Sim" icon="pi pi-check" className="p-button-text" onClick={() => deleteProduct()} />
-    </React.Fragment>
-  );
-
-  const hideDeleteProductDialog = () => {
-    setDeleteProductsDialog(false);
-  }
- 
+  
   return (
     <div className="App">
       <Header />
@@ -262,7 +242,7 @@ const handleProfissional = (e) => {
           <HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem' }}/>
         </Title>
         <div className="container-dash">
-          
+
           <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
 
           {professional && 

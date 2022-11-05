@@ -9,7 +9,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
-import { MenuItem, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { InputTextarea } from 'primereact/inputtextarea';
 
 
@@ -23,12 +23,10 @@ import 'primeflex/primeflex.css';
 import useForm from '../../hooks/useForm';
 import { useEffect } from 'react'
 import { CrudContext } from '../../contexts/Crud';
-import { toast } from 'react-toastify';
 
 function CadastroPaciente() {
 
-  const { getAllPatient,savePatient,  patient, deletePatient } = useContext(CrudContext)
-
+  const { getAllPatient, patient, isLoading } = useContext(CrudContext)
   const { user, isHumburguerActive } = useContext(AuthContext);
   const [submitted, setSubmitted] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState(null);
@@ -123,6 +121,7 @@ const savePaciente = (e) => {
     setDeleteProductsDialog(true);
   }
 
+  
 
   const leftToolbarTemplate = () => {
     return (
@@ -208,7 +207,7 @@ const savePaciente = (e) => {
           <HowToRegSharpIcon style={{ width: '1.5rem', height: '1.5rem' }}/>
         </Title>
         <div className="container-dash">
-          
+                    
           <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
 
           {patient && 
