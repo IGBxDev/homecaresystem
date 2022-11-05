@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createContext } from "react";
 import axios from "axios";
 import useForm from "../hooks/useForm";
+import { toast } from "react-toastify";
 
 export const CrudContext = createContext({})
 
@@ -10,7 +11,7 @@ const CrudProvider = ({ children }) => {
     const [professional, setProfessional] = useState([])
 
 
-    const baseUrl = "https://homecaresystem-backend.herokuapp.com"
+     const baseUrl = "https://homecaresystem-backend.herokuapp.com"
 
     const getAllProfessional = async () => {
         setIsLoading(true)
@@ -29,7 +30,7 @@ const CrudProvider = ({ children }) => {
                             nameComplete: professionalItens.nameComplete,
                             numeroConselho: professionalItens.numeroConselho,
                             especialidade: professionalItens.especialidade,
-                            BloqueiProfissional: professionalItens.BloqueiProfissional,
+                            bloqueiProfissional: professionalItens.bloqueiProfissional,
                         //Regiao
                             zonaNorte: professionalItens.regiao.zonaNorte === true? "Sim" : "Não",
                             zonaLeste: professionalItens.regiao.zonaLeste  === true? "Sim" : "Não",
@@ -61,10 +62,74 @@ const CrudProvider = ({ children }) => {
             setIsLoading(false)
         })
     }
+
+    const saveProfessional = async (payload) =>{
+        setIsLoading(true)
+        let payloadData ={
+            nameComplete: payload.nameComplete,
+            cellphone: payload.cellphone,
+            contaBancaria:[{
+                tipo: payload.tipoConta,    
+                numeroConta: payload.numeroConta,
+                agencia: payload.agencia,
+                banco: payload.banco,
+                codigoBanco: payload.codigoBanco }],
+            cpf: payload.cpf,
+            email: payload.email,
+            endereco: [{
+                cep: payload.cep,
+                bairro: payload.bairro,
+                numero: payload.numero,
+                cidade: payload.cidade,
+                estado: payload.estado,
+                complemento: payload.complemento,
+                endereco: payload.endereco,
+                uf: payload.uf,
+             }],
+            numeroConselho:payload.numeroConselho,
+            regiao:  { 
+                zonaNorte: payload.zonaNorte, 
+                zonaLeste: payload.zonaLeste,
+                zonaSul: payload.zonaSul,
+                zonaOeste: payload.zonaOeste
+            },               
+            especialidade: payload.especialidade,
+            BloqueiProfissional: payload.BloqueiProfissional
+        }
+        axios.post(`${baseUrl}/professional/create`, payloadData)
+        .then(response => {
+            console.info("info: ", response.data)
+            getAllProfessional()
+            toast.success("Registrado cadastrado com sucesso.")
+        })
+        .catch(error => {
+            console.info(error)
+            toast.success(error.response.data.message)
+        })
+        .finally(()=>  setIsLoading(false))
+    }
     
+    const deleteProfessional = async (payloadIds) => {
+        setIsLoading(true)
+        axios.delete(`${baseUrl}/professional/findByIdAndDelete`,
+            { data: { professionalDelete: JSON.parse(JSON.stringify(payloadIds)) } }
+        )
+        .then( response => {
+            getAllProfessional()
+            toast.success("Registro deletado com sucesso")
+        })
+        .catch(error => {
+            console.info(error)
+            toast.error("Ocorreu um erro, caso o problema persistir contate o adm do sistema")
+        })
+        .finally(()=> setIsLoading(false))
+    }
+
     return (
         <CrudContext.Provider value={{
             getAllProfessional,
+            saveProfessional,
+            deleteProfessional,
             professional
         }}>
             {children}

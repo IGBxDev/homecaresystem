@@ -26,23 +26,16 @@ import useForm from '../../hooks/useForm';
 import { useEffect } from 'react'
 import { ProfessionalBlocked, Specialty, TipoConta } from '../../services/lists'
 
-let emptyProduct = {
-  id: null,
-  name: '',
-  image: null,
-  description: '',
-  category: null,
-  price: 0,
-  quantity: 0,
-  rating: 0,
-  inventoryStatus: 'INSTOCK'
-};
-
-
-
 function CadastroProfissional() {
   
-  const { getAllProfessional, professional, isLoading } = useContext(CrudContext)
+  const { 
+    getAllProfessional, 
+    professional, 
+    isLoading, 
+    saveProfessional, 
+    deleteProfessional 
+  } = useContext(CrudContext)
+
   const { user, isHumburguerActive } = useContext(AuthContext);
   const [submitted, setSubmitted] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState(null);
@@ -56,6 +49,7 @@ function CadastroProfissional() {
   const [zonaSul, setZonaSul] = useState(false)
   const [zonaLeste, setZonaLeste] = useState(false)
   const [zonaOeste, setZonaOeste] = useState(false)
+  const [formOption, setFormOption] = useState('')
 
   const dt = useRef(null);
 
@@ -64,6 +58,10 @@ function CadastroProfissional() {
   useEffect(()=>{
     getAllProfessional()
   },[])
+
+  useEffect(()=>{
+    getAllProfessional()
+  },[professional])
 
 // --------------------------------------------------------------------------------------
 const productDialogFooter = (
@@ -93,14 +91,20 @@ const hideDialog = () => {
 const saveProfissional = (e) => {
   setSubmitted(true);       
   setNewProductsDialog(!newProductsDialog)
+
+  const payload = {
+    ...form,
+    zonaNorte: zonaNorte,
+    zonaLeste: zonaLeste,
+    zonaSul: zonaSul,
+    zonaOeste: zonaOeste
+  }
+  saveProfessional(payload)  
 }
 
-// ---------------------------------------------------------------------------------------
+  const openNew = (e) => {
+    const systemProps = e;
 
-
-  // -----------------------------------------------------
-  const openNew = () => {
-    setProduct(emptyProduct);
     setSubmitted(false);
     setProductDialog(true);
     setOpenModal(!openModal)
@@ -109,14 +113,24 @@ const saveProfissional = (e) => {
 
   const confirmDeleteSelected = () => {
     setDeleteProductsDialog(true);
+
+    const payloadProfessionalIds = []
+      selectedProducts.map( item => {
+        payloadProfessionalIds.push(item.id)
+      })
+
+    deleteProfessional(payloadProfessionalIds)
   }
 
 
   const leftToolbarTemplate = () => {
     return (
         <React.Fragment>
-            <Button label="Novo" icon="pi pi-plus" className="p-button-success mr-2" onClick={openNew} />
-            <Button label="Deletar" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
+            <Button label="Novo" icon="pi pi-plus" className="p-button-success mr-2" onClick={(e)=>openNew(e)} />
+            <Button label="Deletar" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts?.length} />
+            <Button label="Editar" className="p-button-info" onClick={(e)=>openNew(e)} disabled={
+              selectedProducts?.length === 1? false : true
+            } />
         </React.Fragment>
     )
   }
@@ -132,16 +146,17 @@ const saveProfissional = (e) => {
     </div>
   );
 
+
   const popUpCadastroProfissional = (
     <Dialog visible={newProductsDialog} style={{ width: "1000px" }} header="Novo profissional" modal className="card p-fluid" footer={productDialogFooter} onHide={hideDialog} >
       
       <label htmlFor="name">Dados Pessoais</label>
       <div className="field">        
-        <TextField className='info-profissional' label="Nome completo" margin="normal"variant="outlined" name='nomeCompletto' value={form.nomeCompletto} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Nome completo" margin="normal"variant="outlined" name='nameComplete' value={form.nameComplete} onChange={(e)=> handleInputChange(e)}/>
         <TextField className='info-profissional' label="E-mail" margin="normal" variant="outlined" name='email' value={form.email} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Telefone com DDD" margin="normal" variant="outlined" name='telefoneDDD' value={form.telefoneDDD} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Telefone com DDD" margin="normal" variant="outlined" name='cellphone' value={form.cellphone} onChange={(e)=> handleInputChange(e)}/>
         <TextField className='info-profissional' label="CPF" margin="normal" variant="outlined" name='cpf' value={form.cpf} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Número do Conselho" margin="normal" variant="outlined" name='numeroConselho' value={form.numeroConsoleho} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Número do Conselho" margin="normal" variant="outlined" name='numeroConselho' value={form.numeroConselho} onChange={(e)=> handleInputChange(e)}/>
         <Checkbox inputId="cb1" value={zonaNorte} name="zonaNorte"checked={zonaNorte} onChange={()=> setZonaNorte(!zonaNorte)} ></Checkbox>
         <label htmlFor="cb1" className="p-checkbox-label">Zona Norte</label>
         <Checkbox inputId="cb1" value={zonaLeste}  name="zonaLeste" checked={zonaLeste} onChange={()=> setZonaLeste(!zonaLeste)} ></Checkbox>
@@ -159,6 +174,7 @@ const saveProfissional = (e) => {
         <TextField className='info-profissional' label="Número" margin="normal" variant="outlined" name='numero' value={form.numero} onChange={(e)=> handleInputChange(e)}/>
         <TextField className='info-profissional' label="Complemento" margin="normal" variant="outlined" name='complemento' value={form.complemento} onChange={(e)=> handleInputChange(e)}/>
         <TextField className='info-profissional' label="UF" margin="normal" variant="outlined" name='uf' value={form.uf} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Estado" margin="normal" variant="outlined" name='estado' value={form.estado} onChange={(e)=> handleInputChange(e)}/>
         <TextField className='info-profissional' label="Cidade" margin="normal" variant="outlined" name='cidade' value={form.cidade} onChange={(e)=> handleInputChange(e)}/>
         <TextField className='info-profissional' label="Bairro" margin="normal" variant="outlined" name='bairro' value={form.bairro} onChange={(e)=> handleInputChange(e)}/>
       </div>     
@@ -167,7 +183,7 @@ const saveProfissional = (e) => {
       <div className="field">        
         <TextField className='info-profissional' label="Banco" margin="normal"variant="outlined" name='banco' value={form.banco} onChange={(e)=> handleInputChange(e)}/>
         <TextField className='info-profissional' label="Agência" margin="normal" variant="outlined" name='agencia' value={form.agencia} onChange={(e)=> handleInputChange(e)}/>
-        <TextField className='info-profissional' label="Conta" margin="normal" variant="outlined" name='conta' value={form.conta} onChange={(e)=> handleInputChange(e)}/>
+        <TextField className='info-profissional' label="Conta" margin="normal" variant="outlined" name='numeroConta' value={form.numeroConta} onChange={(e)=> handleInputChange(e)}/>
        
         <TextField
             className='info-profissional'
@@ -212,7 +228,7 @@ const saveProfissional = (e) => {
 
         <TextField
             className='info-profissional'
-            name='profissionalBloqueio'
+            name='bloqueiProfissional'
             select
             label="Profissional bloqueado?"
             value={form.profissionalBloqueio}
@@ -227,15 +243,11 @@ const saveProfissional = (e) => {
               </MenuItem>
             ))}
         </TextField>
-
-        {/* <TextField className='info-profissional' label="Profissional bloqueado?" margin="normal" variant="outlined" name='profissionalBloqueio' value={form.profissionalBloqueio} onChange={(e)=> handleInputChange(e)}/>         */}
       </div>  
-
-
     </Dialog>
   )
 
-  
+
   return (
     <div className="App">
       <Header />
@@ -272,7 +284,7 @@ const saveProfissional = (e) => {
                 <Column field="numeroConta" header="Conta" sortable style={{ minWidth: '8rem' }}></Column>
                 <Column field="tipo" header="Tipo de Conta CC/POP" sortable style={{ minWidth: '14rem' }}></Column>
                 <Column field="especialidade" header="Especialidade" sortable style={{ minWidth: '12rem' }}></Column>
-                <Column field="BloqueiProfissional" header="Bloqueio do Profissional" sortable style={{ minWidth: '18rem' }}></Column>
+                <Column field="bloqueiProfissional" header="Bloqueio do Profissional" sortable style={{ minWidth: '18rem' }}></Column>
                 <Column field="zonaNorte" header="Zona Norte" sortable style={{ minWidth: '10rem' }}></Column>
                 <Column field="zonaLeste" header="Zona Leste" sortable style={{ minWidth: '10rem' }}></Column>
                 <Column field="zonaSul" header="Zona Sul" sortable style={{ minWidth: '10rem' }}></Column>
