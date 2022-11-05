@@ -20,7 +20,6 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 
-import Register from '../../components/Register';
 import useForm from '../../hooks/useForm';
 import { useEffect } from 'react'
 import { CrudContext } from '../../contexts/Crud';
@@ -41,6 +40,10 @@ function CadastroPaciente() {
   const dt = useRef(null);
   const [dataForm, handleInputChange, clear] = useForm({});
 
+
+  useEffect(()=>{
+    getAllPatient()
+  },[])
 // --------------------------------------------------------------------------------------
 const productDialogFooter = (
   <React.Fragment>
@@ -77,8 +80,30 @@ const onInputChange = (e, name) => {
 const savePaciente = (e) => {
   setSubmitted(true);   
   console.log("dados paciente", dataForm)    
-  // handleSaveMomento(e)
-  setNewProductsDialog(!newProductsDialog)
+  if(dataForm){
+    let payload = {
+      nameComplete: dataForm.nameComplete,
+      email: dataForm.email,
+      cellphone: dataForm.cellphone,
+      address: [{
+        bairro: dataForm.bairro,
+        cep: dataForm.cep,
+        cidade: dataForm.cidade,
+        complemento: dataForm.complemento,
+        estado: dataForm.estado,
+        numero: dataForm.numero,
+        endereco: dataForm.endereco,
+        uf: dataForm.uf
+      }],
+      hd: dataForm?.hd
+    }
+
+    savePatient(payload)
+    setSubmitted(true);      
+    setNewProductsDialog(!newProductsDialog)
+
+  }
+  
 }
 
 // ---------------------------------------------------------------------------------------
@@ -110,7 +135,7 @@ const savePaciente = (e) => {
   
   const header = (
     <div className="table-header">
-        <h5 className="mx-0 my-1">Pesquisar profissional</h5>
+        <h5 className="mx-0 my-1">Pesquisar paciente</h5>
         <span className="p-input-icon-left">
             <i className="pi pi-search" />
             <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Search..." />
@@ -123,9 +148,9 @@ const savePaciente = (e) => {
       
       <label htmlFor="name">Dados Pessoais</label>
       <div className="field">        
-        <TextField className='info-profissional' name='nomeCompletto' value={dataForm.nomeCompletto} onChange={(e)=> handleInputChange(e)} label="Nome completo" margin="normal"variant="outlined" />
+        <TextField className='info-profissional' name='nameComplete' value={dataForm.nameComplete} onChange={(e)=> handleInputChange(e)} label="Nome completo" margin="normal"variant="outlined" />
         <TextField className='info-profissional' name='email' value={dataForm.email} onChange={(e)=> handleInputChange(e)} label="E-mail" margin="normal" variant="outlined" />
-        <TextField className='info-profissional' name='telefoneDDD' value={dataForm.telefoneDDD} onChange={(e)=> handleInputChange(e)} label="Telefone com DDD" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='cellphone' value={dataForm.cellphone} onChange={(e)=> handleInputChange(e)} label="Telefone com DDD" margin="normal" variant="outlined" />
       </div>
 
       <label htmlFor="name">Endereço</label>
@@ -137,16 +162,43 @@ const savePaciente = (e) => {
         <TextField className='info-profissional' name='uf' value={dataForm.uf} onChange={(e)=> handleInputChange(e)} label="UF" margin="normal" variant="outlined" />
         <TextField className='info-profissional' name='cidade' value={dataForm.cidade} onChange={(e)=> handleInputChange(e)} label="Cidade" margin="normal" variant="outlined" />
         <TextField className='info-profissional' name='bairro' value={dataForm.bairro} onChange={(e)=> handleInputChange(e)} label="Bairro" margin="normal" variant="outlined" />
+        <TextField className='info-profissional' name='estado' value={dataForm.estado} onChange={(e)=> handleInputChange(e)} label="Estado" margin="normal" variant="outlined" />
       </div>     
   
-      <label htmlFor="name">Demais informações</label>
+      <label htmlFor="name">HD</label>
       <div className="field">        
-        <InputTextarea id="description" name='demaisInformacoes' value={dataForm.demaisInformacoes} onChange={(e)=> handleInputChange(e)} required rows={3} cols={20} />     
+        <InputTextarea id="hd" name='hd' value={dataForm.hd} onChange={(e)=> handleInputChange(e)} required rows={3} cols={20} />     
       </div>  
 
 
     </Dialog>
   )
+
+  const deleteProductDialogFooter = (
+    <React.Fragment>
+        <Button label="Não" icon="pi pi-times" className="p-button-text" onClick={() => hideDeleteProductDialog()} />
+        <Button label="Sim" icon="pi pi-check" className="p-button-text" onClick={() => deleteProduct()} />
+    </React.Fragment>
+  );
+
+  const hideDeleteProductDialog = () => {
+    setDeleteProductsDialog(false);
+  }
+ 
+  const deleteProduct = () => {
+    let deletar = [];
+  
+    selectedProducts.forEach(customer => {
+        deletar.push(customer.id)
+    })
+  
+    deletePatient(deletar);
+  
+    setDeleteProductsDialog(false);
+    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+  }
+
+
   return (
     <div className="App">
       <Header />
@@ -158,28 +210,36 @@ const savePaciente = (e) => {
                     
           <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
 
-          <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
-              dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
-              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
-              globalFilter={globalFilter} header={header} responsiveLayout="scroll">
-              <Column selectionMode="multiple" headerStyle={{ width: '3rem' }} exportable={false}></Column>
-              <Column field="nomeCompleto" header="Nome Completo" sortable style={{ minWidth: '12rem' }}></Column>
-              <Column field="email" header="E-mail" sortable style={{ minWidth: '7rem' }}></Column>
-              <Column field="telefone" header="Telefone com DDD" sortable style={{ minWidth: '14rem' }}></Column>
-              <Column field="cep" header="CEP" sortable style={{ minWidth: '5rem' }}></Column>
-              <Column field="endereco" header="Endereço" sortable style={{ minWidth: '8rem' }}></Column>
-              <Column field="numero" header="Número" sortable style={{ minWidth: '6rem' }}></Column>
-              <Column field="complemento" header="complemento" sortable style={{ minWidth: '7rem' }}></Column>
-              <Column field="uf" header="UF" sortable style={{ minWidth: '3rem' }}></Column>
-              <Column field="cidade" header="Cidade" sortable style={{ minWidth: '6rem' }}></Column>
-              <Column field="bairro" header="Bairro" sortable style={{ minWidth: '6rem' }}></Column>
+          {patient && 
+            <DataTable ref={dt} value={patient} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
+                dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+                paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+                globalFilter={globalFilter} header={header} responsiveLayout="scroll">
+                <Column selectionMode="multiple" headerStyle={{ width: '3rem' }} exportable={false}></Column>
+                <Column field="nameComplete" header="Nome Completo" sortable style={{ minWidth: '12rem' }}></Column>
+                <Column field="email" header="E-mail" sortable style={{ minWidth: '7rem' }}></Column>
+                <Column field="cellphone" header="Telefone com DDD" sortable style={{ minWidth: '14rem' }}></Column>
+                <Column field="cep" header="CEP" sortable style={{ minWidth: '5rem' }}></Column>
+                <Column field="endereco" header="Endereço" sortable style={{ minWidth: '8rem' }}></Column>
+                <Column field="numero" header="Número" sortable style={{ minWidth: '6rem' }}></Column>
+                <Column field="complemento" header="complemento" sortable style={{ minWidth: '7rem' }}></Column>
+                <Column field="uf" header="UF" sortable style={{ minWidth: '3rem' }}></Column>
+                <Column field="cidade" header="Cidade" sortable style={{ minWidth: '6rem' }}></Column>
+                <Column field="bairro" header="Bairro" sortable style={{ minWidth: '6rem' }}></Column>
 
-              <Column field="codigoBanco" header="HD" sortable style={{ minWidth: '12rem' }}></Column>
-          </DataTable>
-
+                <Column field="hd" header="HD" sortable style={{ minWidth: '12rem' }}></Column>
+            </DataTable>
+          }
 
           {newProductsDialog && popUpCadastroProfissional}
+          <Dialog visible={deleteProductsDialog} style={{ width: '450px' }} header="Confirmar" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
+              <div className="confirmation-content">
+                  <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
+                  {deleteProductsDialog && <span>Tem certeza que gostaria de deletar o profissional <b>selecionados</b>?</span>}
+              </div>
+          </Dialog>
+
         </div>
       </div>
     </div>

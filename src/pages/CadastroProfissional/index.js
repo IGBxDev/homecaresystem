@@ -76,7 +76,7 @@ const productDialogFooter = (
       label="Salvar"
       icon="pi pi-check"
       className="p-button-text"
-      onClick={(e) => saveProfissional(e)}
+      onClick={(e) => handleProfissional(e)}
     />
   </React.Fragment>
 );
@@ -291,9 +291,14 @@ const saveProfissional = (e) => {
                 <Column field="zonaOeste" header="Zona Oeste" sortable style={{ minWidth: '10rem' }}></Column>
             </DataTable>
           }
-
-
           {newProductsDialog && popUpCadastroProfissional}
+
+          <Dialog visible={deleteProductsDialog} style={{ width: '450px' }} header="Confirmar" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
+              <div className="confirmation-content">
+                  <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
+                  {deleteProductsDialog && <span>Tem certeza que gostaria de deletar o profissional <b>selecionados</b>?</span>}
+              </div>
+          </Dialog>
         </div>
       </div>
     </div>
